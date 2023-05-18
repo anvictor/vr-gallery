@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { createRoot } from "react-dom/client";
+import { Canvas, useThree } from "@react-three/fiber";
+import MeshBox from "./components/Box";
+import MeshSphere from "./components/Sphere";
+import Room from "./components/Room";
+function Foo() {
+  const state = useThree();
+  console.log(state);
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="canvas-container" style={{backgroundColor: 'grey', height: '500px'}}>
+      <Canvas>
+        <ambientLight intensity={0.1} />
+        <directionalLight color="red" position={[0, 0, 5]} />
+        <MeshBox />
+        <MeshSphere />
+        {/* <Foo /> */}
+        <Room onClick={(scene)=>{console.log(scene)}} />
+      </Canvas>
     </div>
   );
+}
+const root = document.getElementById("root");
+if (!root) {
+  createRoot(root).render(<App />);
 }
 
 export default App;
