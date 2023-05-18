@@ -1,6 +1,6 @@
 const MeshSphere = () => {
   return (
-    <mesh position={[-2, 0, 0]} onClick={(e)=>{
+    <mesh position={[0, 0, 0]} onClick={(e)=>{
       console.log(e);
       e.object.position.x = -10    }}>
       <sphereGeometry/>
