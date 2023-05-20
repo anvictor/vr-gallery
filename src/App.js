@@ -1,11 +1,10 @@
 import { createRoot } from "react-dom/client";
 import { Canvas, useThree } from "@react-three/fiber";
-import MeshBox from "./components/Box";
 import MeshSphere from "./components/Sphere";
-import Room from "./components/Room";
+import Room from "./components/Room/Room";
 function Foo() {
   const state = useThree();
-  console.log(state);
+  console.log('state',state);
 }
 
 function App() {
@@ -14,7 +13,6 @@ function App() {
       <Canvas>
         <ambientLight intensity={0.1} />
         <directionalLight color="white" position={[0, 0, 5]} />
-        <MeshBox />
         <MeshSphere />
         {/* <Foo /> */}
         <Room onClick={(scene)=>{console.log(scene)}} />

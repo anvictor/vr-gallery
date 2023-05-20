@@ -1,10 +1,8 @@
-import React from 'react';
-import { useLoader, useFrame } from "@react-three/fiber";
-import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
+import { useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 
-const Room = () => {
-  const Textures = {
+const Textures = (useLoader, TextureLoader) => {
+  return {
     Floor_5_FlMtl: {
       colorMap: useLoader(TextureLoader, "/room/skin1/floor_lightMap.jpg"),
       displacementMap: useLoader(TextureLoader, "/room/skin1/floor_map.jpg"),
@@ -157,25 +155,6 @@ const Room = () => {
       aoMap: useLoader(TextureLoader, "/room/skin1/walls_aoMap.jpg"),
     },
   };
-
-  const room = useLoader(OBJLoader, "/room/room.obj");
-  room.position.x = 0;
-  room.position.y = -175;
-  room.position.z = 10;
-  room.traverse((child) => {
-    console.log(child.name);
-    if (child.name) {
-      child.material.map = Textures[child.name].colorMap;
-      child.material.displacementMap = Textures[child.name].displacementMap;
-      child.material.normalMap = Textures[child.name].normalMap;
-      child.material.roughnessMap = Textures[child.name].roughnessMap;
-      child.material.aoMap = Textures[child.name].aoMap;
-    }
-  });
-  const roomRef = React.useRef();
-  useFrame(({ clock }) => {
-    roomRef.current.rotation.y = clock.getElapsedTime()
-  });
-  return <primitive object={room} ref={roomRef} />;
 };
-export default Room;
+
+export default Textures;
