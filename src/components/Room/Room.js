@@ -1,8 +1,8 @@
 import React from 'react';
-import { useLoader, useFrame } from "@react-three/fiber";
+import { useLoader } from "@react-three/fiber";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
-import getTextures from './utils';
+import {Textures as getTextures} from '../utils';
 
 const Room = () => {
 const Textures = getTextures(useLoader, TextureLoader);
@@ -23,9 +23,7 @@ if (child.isMesh && child.name && Textures) {
     }
   });
   const roomRef = React.useRef();
-  useFrame(({ clock }) => {
-    roomRef.current.rotation.y = clock.getElapsedTime()/20;
-  });
+ 
   return <primitive object={room} ref={roomRef} />;
 };
 export default Room;

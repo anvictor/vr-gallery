@@ -1,5 +1,3 @@
-import { useLoader } from "@react-three/fiber";
-import { TextureLoader } from "three/src/loaders/TextureLoader";
 
 const Textures = (useLoader, TextureLoader) => {
   return {
@@ -156,5 +154,5 @@ const Textures = (useLoader, TextureLoader) => {
     },
   };
 };
-
-export default Textures;
+const speed = 1.0;  // Adjust as needed
+export {Textures, speed};
