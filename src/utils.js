@@ -1,4 +1,3 @@
-
 const Textures = (useLoader, TextureLoader) => {
   return {
     Floor_5_FlMtl: {
@@ -154,5 +153,6 @@ const Textures = (useLoader, TextureLoader) => {
     },
   };
 };
-const speed = 1.0;  // Adjust as needed
-export {Textures, speed};
+const speed = 1.0; // Adjust as needed
+
+export { Textures, speed };
