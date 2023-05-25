@@ -1,79 +1,93 @@
-import { useState, useEffect } from 'react'
-import { useThree } from '@react-three/fiber'
-import { Euler } from 'three'
+import { useState, useEffect } from "react";
 
 export function useControls() {
-  const { gl, camera } = useThree()
-  const [moveForward, setMoveForward] = useState(false)
-  const [moveBackward, setMoveBackward] = useState(false)
-  const [moveLeft, setMoveLeft] = useState(false)
-  const [moveRight, setMoveRight] = useState(false)
-  const [rotation, setRotation] = useState(new Euler(0, 0, 0, 'YXZ'))
-
-  const onMouseMove = (event) => {
-    const movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0
-    const movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0
-
-    rotation.y -= movementX * 0.002
-    rotation.x -= movementY * 0.002
-    rotation.x = Math.max(- Math.PI / 2, Math.min(Math.PI / 2, rotation.x))
-
-    setRotation(rotation.clone())
-  }
-
-  const onKeyDown = (event) => {
-    switch (event.keyCode) {
-      case 87: // w
-      case 38: // up
-        setMoveForward(true)
-        break
-      case 65: // a
-      case 37: // left
-        setMoveLeft(true)
-        break
-      case 83: // s
-      case 40: // down
-        setMoveBackward(true)
-        break
-      case 68: // d
-      case 39: // right
-        setMoveRight(true)
-        break
-    }
-  }
-
-  const onKeyUp = (event) => {
-    switch (event.keyCode) {
-      case 87: // w
-      case 38: // up
-        setMoveForward(false)
-        break
-      case 65: // a
-      case 37: // left
-        setMoveLeft(false)
-        break
-      case 83: // s
-      case 40: // down
-        setMoveBackward(false)
-        break
-      case 68: // d
-      case 39: // right
-        setMoveRight(false)
-        break
-    }
-  }
+  const [moveForward, setMoveForward] = useState(false);
+  const [moveBackward, setMoveBackward] = useState(false);
+  const [moveLeft, setMoveLeft] = useState(false);
+  const [moveRight, setMoveRight] = useState(false);
+  const [rotation, setRotation] = useState({ x: 0, y: 0 });
+  const [mouseDown, setMouseDown] = useState(false) // Track the state of the mouse button
 
   useEffect(() => {
-    gl.domElement.ownerDocument.addEventListener('mousemove', onMouseMove, false)
-    gl.domElement.ownerDocument.addEventListener('keydown', onKeyDown, false)
-    gl.domElement.ownerDocument.addEventListener('keyup', onKeyUp, false)
+    const handleKeyDown = (e) => {
+      console.log(e.key);
 
-    return () => {
-      gl.domElement.ownerDocument.removeEventListener('mousemove', onMouseMove, false)
-      gl.domElement.ownerDocument.removeEventListener('keydown', onKeyDown, false)
-      gl.domElement.ownerDocument.removeEventListener('keyup', onKeyUp, false)
-    }
-  }, [gl.domElement.ownerDocument, camera])
+      switch (e.keyCode) {
+        case 87: // w
+        case 38: // up
+          setMoveForward(true);
+          break;
+        case 65: // a
+        case 37: // left
+          setMoveLeft(true);
+          break;
+        case 83: // s
+        case 40: // down
+          setMoveBackward(true);
+          break;
+        case 68: // d
+        case 39: // right
+          setMoveRight(true);
+          break;
+      }
+    };
 
-  return [moveForward, moveBackward, moveLeft, moveRight, rotation]
-}
+    const handleKeyUp = (e) => {
+      switch (e.keyCode) {
+        case 87: // w
+        case 38: // up
+          setMoveForward(false);
+          break;
+        case 65: // a
+        case 37: // left
+          setMoveLeft(false);
+          break;
+        case 83: // s
+        case 40: // down
+          setMoveBackward(false);
+          break;
+        case 68: // d
+        case 39: // right
+          setMoveRight(false);
+          break;
+      }
+    };
+
+    const handleMouseDown = () => {
+        setMouseDown(true)
+      }
+  
+      const handleMouseUp = () => {
+        setMouseDown(false)
+      }
+  
+      const handleMouseMove = (e) => {
+        if (mouseDown) { // Only update the rotation if the mouse button is pressed
+          const movementX = e.movementX || e.mozMovementX || e.webkitMovementX || 0
+          const movementY = e.movementY || e.mozMovementY || e.webkitMovementY || 0
+  
+          setRotation((rotation) => ({
+            ...rotation,
+            y: rotation.y + movementX * 0.002,
+            x: Math.max(Math.min(rotation.x + movementY * 0.002, Math.PI / 2), -Math.PI / 2),
+          }))
+        }
+      }
+  
+      window.addEventListener('keydown', handleKeyDown)
+      window.addEventListener('keyup', handleKeyUp)
+      window.addEventListener('mousedown', handleMouseDown)
+      window.addEventListener('mouseup', handleMouseUp)
+      window.addEventListener('mousemove', handleMouseMove)
+  
+      return () => {
+        window.removeEventListener('keydown', handleKeyDown)
+        window.removeEventListener('keyup', handleKeyUp)
+        window.removeEventListener('mousedown', handleMouseDown)
+        window.removeEventListener('mouseup', handleMouseUp)
+        window.removeEventListener('mousemove', handleMouseMove)
+      }
+    }, [mouseDown]) // Add mouseDown as a dependency so that the event handlers are updated when its value changes
+  
+    return [moveForward, moveBackward, moveLeft, moveRight, rotation]
+  }
