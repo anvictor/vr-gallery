@@ -29,6 +29,7 @@ export default function FirstPersonCamera() {
     ref.current.translateX(velocity.x * delta);
     ref.current.translateZ(velocity.z * delta);
     ref.current.rotation.y = rotation.y; // Only allow left-right rotation (yaw)
+    // ref.current.rotation.x = rotation.x; // Only allow up down rotation (pitch)
 
     camera.position.copy(ref.current.position);
     camera.rotation.copy(ref.current.rotation);

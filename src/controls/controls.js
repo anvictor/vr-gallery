@@ -10,7 +10,6 @@ export function useControls() {
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      console.log(e.key);
 
       switch (e.keyCode) {
         case 87: // w
