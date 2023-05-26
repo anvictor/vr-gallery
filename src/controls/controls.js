@@ -36,8 +36,8 @@ export default function useControls(domElement) {
       setMousePos({ x: 0, y: 0 });
     };
     const handleMouseMove = (event) => {
-      console.log('Move');
-
+      
+      console.log('Move',mouseDown);
       if (mouseDown) {
         const dx = event.movementX * 0.002;
         const dy = event.movementY * 0.002;
@@ -47,17 +47,17 @@ export default function useControls(domElement) {
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("keyup", handleKeyUp);
     domElement.addEventListener("mousedown", handleMouseDown);
-    domElement.addEventListener("mouseup", handleMouseUp);
-    domElement.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
+    document.addEventListener("mousemove", handleMouseMove);
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
       domElement.removeEventListener("mousedown", handleMouseDown);
-      domElement.removeEventListener("mouseup", handleMouseUp);
-      domElement.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener("mousemove", handleMouseMove);
     };
-  }, []);
+  }, [mouseDown]);
 
   return [moveState, mouseDown, mousePos];
 }
