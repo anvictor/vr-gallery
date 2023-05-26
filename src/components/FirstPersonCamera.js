@@ -1,51 +1,41 @@
-import { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { Vector3 } from "three";
-import { useControls } from "../controls/controls";
+import * as THREE from 'three';
+import useControls from '../controls/controls';
 
 export default function FirstPersonCamera() {
-  const { camera } = useThree();
-  const ref = useRef();
-  const [
-    moveForward,
-    moveBackward,
-    moveLeft,
-    moveRight,
-    rotation,
-  ] = useControls();
+  const {
+    camera,
+    gl: { domElement },
+  } = useThree();
+  const cameraRef = useRef();
+  const [moveState, mouseDown, mousePos] = useControls(domElement);
+  
+  useEffect(() => {
+    const canvas = domElement;
+    cameraRef.current = camera;
+    camera.rotation.order = 'YXZ';
+    return () => {
+      camera.rotation.order = 'XYZ';
+    };
+  }, [camera, domElement]);
 
-  const velocity = new Vector3();
-  const direction = new Vector3();
-
-  useFrame((_, delta) => {
-    direction.z = Number(moveBackward) - Number(moveForward);
-    direction.x = Number(moveRight) - Number(moveLeft);
-    direction.normalize();
-
-    velocity.x -= velocity.x * 10.0 * delta;
-    velocity.z -= velocity.z * 10.0 * delta;
-    velocity.add(direction.multiplyScalar(400.0 * delta));
-
-    ref.current.translateX(velocity.x * delta);
-    ref.current.translateZ(velocity.z * delta);
-    ref.current.rotation.y = rotation.y; // Only allow left-right rotation (yaw)
-    // ref.current.rotation.x = rotation.x; // Only allow up down rotation (pitch)
-
-    camera.position.copy(ref.current.position);
-    camera.rotation.copy(ref.current.rotation);
-    camera.up.set(0, 1, 0); // Ensure "up" is always pointing in the world's "up" direction
+  useFrame(() => {
+    const moveSpeed = 0.1;
+    if (mouseDown) {
+      camera.rotation.y -= mousePos.x;
+      camera.rotation.x -= mousePos.y;
+      camera.rotation.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, camera.rotation.x));
+    }
+    const direction = new THREE.Vector3();
+    camera.getWorldDirection(direction);
+    if (moveState.forward) camera.position.add(direction.multiplyScalar(moveSpeed));
+    if (moveState.backward) camera.position.sub(direction.multiplyScalar(moveSpeed));
+    const right = new THREE.Vector3();
+    right.crossVectors(camera.up, direction).normalize();
+    if (moveState.right) camera.position.add(right.multiplyScalar(moveSpeed));
+    if (moveState.left) camera.position.sub(right.multiplyScalar(moveSpeed));
   });
 
-  return (
-    <group ref={ref}>
-      <perspectiveCamera
-        makeDefault
-        fov={75}
-        aspect={window.innerWidth / window.innerHeight}
-        near={0.1}
-        far={1000}
-        position={[0, 2, 5]} // Adjust height of the camera
-      />
-    </group>
-  );
+  return null;
 }
