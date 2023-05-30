@@ -21,7 +21,7 @@ export default function FirstPersonCamera() {
   }, [camera, domElement]);
 
   useFrame(() => {
-    const moveSpeed = 0.1;
+    const moveSpeed = 1.5;
     if (mouseDown) {
       camera.rotation.y -= mousePos.x;
       camera.rotation.x -= mousePos.y;

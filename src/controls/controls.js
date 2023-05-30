@@ -27,20 +27,17 @@ export default function useControls(domElement) {
     const handleKeyUp = (event) =>
       setMoveState((s) => ({ ...s, [keys[event.key]]: false }));
     const handleMouseDown = () =>{
-      console.log('Down');
       setMouseDown(true);
     } 
     const handleMouseUp = () => {
-      console.log('Up');
       setMouseDown(false);
       setMousePos({ x: 0, y: 0 });
     };
     const handleMouseMove = (event) => {
       
-      console.log('Move',mouseDown);
       if (mouseDown) {
-        const dx = event.movementX * 0.002;
-        const dy = event.movementY * 0.002;
+        const dx = -event.movementX * 0.002;
+        const dy = -event.movementY * 0.002;
         setMousePos({ x: dx, y: dy });
       }
     };
