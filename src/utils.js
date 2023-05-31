@@ -153,6 +153,10 @@ const Textures = (useLoader, TextureLoader) => {
     },
   };
 };
-const speed = 1.0; // Adjust as needed
+const getDiagonal = (point1, point2) => {
+  const dX2 = (point2.x - point1.x) * (point2.x - point1.x);
+  const dZ2 = (point2.z - point1.z) * (point2.z - point1.z);
+  return Math.sqrt(dX2 + dZ2);
+};
 
-export { Textures, speed };
+export { Textures, getDiagonal };

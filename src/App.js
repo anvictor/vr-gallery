@@ -1,27 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { createRoot } from "react-dom/client";
-import { Canvas  } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import Room from "./components/Room";
 import FirstPersonCamera from "./components/FirstPersonCamera";
 
 const App = () => {
+const [clickPoint, setClickPoint] = useState(null);
+
   return (
     <div
       id="canvas-container"
       style={{ backgroundColor: "grey", height: "500px" }}
     >
-      <Canvas
-        onCreated={({ gl }) => (gl.domElement.tabIndex = 0)}
-        style={{ touchAction: "none", position: "fixed", pointerEvents: "all" }}
-        onPointerMissed={(event) => {
-          console.log(event);
-        }}
-      >
+      <Canvas>
         <ambientLight intensity={0.1} />
         <directionalLight color="white" position={[0, 0, 5]} />
-        <Room />
-        <FirstPersonCamera />
+        <Room getClickPointXYZ={setClickPoint} />
+        <FirstPersonCamera goTo={clickPoint}/>
       </Canvas>
     </div>
   );
