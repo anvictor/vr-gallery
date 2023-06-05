@@ -16,6 +16,7 @@ export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
   const cameraRef = useRef();
   const [moveState, mouseDown, mousePos, keyDown] = useControls(domElement);
   camera.position.y = 179;
+  camera.far = 2000;
   getIsKeyDown(keyDown);
   useEffect(() => {
     cameraRef.current = camera;
