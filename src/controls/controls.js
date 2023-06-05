@@ -20,21 +20,25 @@ export default function useControls(domElement) {
   });
   const [mouseDown, setMouseDown] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [keyDown, setkeyDown] = useState(false);
 
   useEffect(() => {
-    const handleKeyDown = (event) =>
-      setMoveState((s) => ({ ...s, [keys[event.key]]: true }));
-    const handleKeyUp = (event) =>
-      setMoveState((s) => ({ ...s, [keys[event.key]]: false }));
-    const handleMouseDown = () =>{
+    const handleKeyDown = (event) => {
+      setkeyDown(true);
+      return setMoveState((s) => ({ ...s, [keys[event.key]]: true }));
+    };
+    const handleKeyUp = (event) => {
+      setkeyDown(false);
+      return setMoveState((s) => ({ ...s, [keys[event.key]]: false }));
+    };
+    const handleMouseDown = () => {
       setMouseDown(true);
-    } 
+    };
     const handleMouseUp = () => {
       setMouseDown(false);
       setMousePos({ x: 0, y: 0 });
     };
     const handleMouseMove = (event) => {
-      
       if (mouseDown) {
         const dx = -event.movementX * 0.002;
         const dy = -event.movementY * 0.002;
@@ -56,5 +60,5 @@ export default function useControls(domElement) {
     };
   }, [mouseDown]);
 
-  return [moveState, mouseDown, mousePos];
+  return [moveState, mouseDown, mousePos, keyDown];
 }

@@ -159,4 +159,29 @@ const getDiagonal = (point1, point2) => {
   return Math.sqrt(dX2 + dZ2);
 };
 
-export { Textures, getDiagonal };
+const getPointCloserToEnd = (startPoint, endPoint, distanceCloser = 10) => {
+  // Calculate the vector from start to end
+  let vector = {
+    x: endPoint.x - startPoint.x,
+    z: endPoint.z - startPoint.z,
+  };
+
+  // Calculate the length of the vector
+  let length = Math.sqrt(vector.x ** 2 + vector.z ** 2);
+
+  // Normalize the vector
+  let normalizedVector = {
+    x: vector.x / length,
+    z: vector.z / length,
+  };
+
+  // Calculate the new point
+  let newPoint = {
+    x: startPoint.x + normalizedVector.x * distanceCloser,
+    z: startPoint.z + normalizedVector.z * distanceCloser,
+  };
+
+  return newPoint;
+};
+
+export { Textures, getDiagonal, getPointCloserToEnd };
