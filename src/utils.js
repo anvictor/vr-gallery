@@ -159,7 +159,7 @@ const getDiagonal = (point1, point2) => {
   return Math.sqrt(dX2 + dZ2);
 };
 
-const getPointCloserToEnd = (startPoint, endPoint, distanceCloser = 10) => {
+const getPointCloserToEnd = (startPoint, endPoint, distanceCloser) => {
   // Calculate the vector from start to end
   let vector = {
     x: endPoint.x - startPoint.x,
@@ -184,4 +184,16 @@ const getPointCloserToEnd = (startPoint, endPoint, distanceCloser = 10) => {
   return newPoint;
 };
 
-export { Textures, getDiagonal, getPointCloserToEnd };
+const getWay = (startPosition, finishPosition, steps) => {
+  const dx = (finishPosition.x - startPosition.x) / steps;
+  const dz = (finishPosition.z - startPosition.z) / steps;
+  const way = [];
+  way.push([startPosition.x, startPosition.z]);
+
+  for (let i = 0; i < steps - 1; i++) {
+    way.push([startPosition.x + dx * i, startPosition.z + dz * i]);
+  }
+  return way;
+};
+
+export { Textures, getDiagonal, getPointCloserToEnd, getWay };

@@ -2,12 +2,14 @@ import { useRef, useEffect, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import useControls from "../controls/controls";
-import { getPointCloserToEnd } from "../utils";
+import { getPointCloserToEnd, getWay } from "../utils";
 
 export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
   const raycaster = new THREE.Raycaster();
   const mouse = new THREE.Vector2();
   let [go, setGo] = useState(goTo);
+  const [way, setWay] = useState([]); 
+  const [currentStep, setCurrentStep] = useState(0); 
   const {
     camera,
     scene,
@@ -25,7 +27,6 @@ export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
       camera.rotation.order = "XYZ";
     };
   }, [camera, domElement]);
-
 
   useFrame(() => {
     raycaster.setFromCamera(mouse, camera);
@@ -45,8 +46,27 @@ export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
     }
 
     if (goTo) {
-      camera.position.x = getPointCloserToEnd(goTo, cameraRef.current.position).x;
-      camera.position.z = getPointCloserToEnd(goTo, cameraRef.current.position).z;
+      const startPosition = camera.position;
+      const finishPosition = getPointCloserToEnd(goTo, startPosition, 10);
+  
+      // Only calculate the way once per goTo request
+      if (way.length === 0 && currentStep === 0) {
+        const calculatedWay = getWay(startPosition, finishPosition, 30);
+        setWay(calculatedWay);
+      } 
+  
+      // Move the camera along the way if there's more to go
+      if (way.length > currentStep) {
+        const [x, z] = way[currentStep];
+        camera.position.x = x;
+        camera.position.z = z;
+        setCurrentStep(currentStep + 1);
+      }
+      // If we've finished the journey, reset the state
+      else if (way.length > 0 && currentStep >= way.length) {
+        setWay([]);
+        setCurrentStep(0);
+      }
     }
 
     const direction = new THREE.Vector3();
@@ -55,7 +75,7 @@ export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
       camera.position.add(direction.multiplyScalar(moveSpeed));
       camera.position.y = 179;
     }
-    if (moveState.backward){
+    if (moveState.backward) {
       camera.position.sub(direction.multiplyScalar(moveSpeed));
       camera.position.y = 179;
     }

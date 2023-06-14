@@ -54,6 +54,8 @@ const Room = ({ getClickPointXYZ }) => {
       true
     );
     if (intersects.length > 0) {
+      // console.log(intersects[0].face);
+      // console.log('normal', intersects[0].face.normal);
       const endDelta = intersects[0].point;
       const diagonal = getDiagonal(startDelta, endDelta);
       if (diagonal < 15) {
