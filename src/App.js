@@ -15,6 +15,7 @@ const SceneInspector = () => {
 const App = () => {
   const [isKeyDown, setisKeyDown] = useState(false);
   const [clickPoint, setClickPoint] = useState(null);
+  const [pointer, setPointer] = useState(null);
   console.log("clickPoint", clickPoint);
   useEffect(() => {
     if (isKeyDown) setClickPoint(null);
@@ -27,9 +28,12 @@ const App = () => {
       <Canvas>
         <ambientLight intensity={0.5} />
         <directionalLight color="white" position={[350, 400, -400]} intensity={0.5} />
-        <Room getClickPointXYZ={setClickPoint} />
+        <Room 
+          getClickPointXYZ={setClickPoint} 
+          getPointer={setPointer}
+        />
         <FirstPersonCamera goTo={clickPoint} getIsKeyDown={setisKeyDown} />
-        <Pointer3d />
+        <Pointer3d pointer={pointer}/>
         <SceneInspector />
       </Canvas>
     </div>

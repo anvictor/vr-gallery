@@ -5,7 +5,7 @@ import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { Textures as getTextures, getDiagonal } from "../utils";
 import * as THREE from "three";
 
-const Room = ({ getClickPointXYZ }) => {
+const Room = ({ getClickPointXYZ, getPointer }) => {
   const {
     raycaster,
     camera,
@@ -55,10 +55,6 @@ const Room = ({ getClickPointXYZ }) => {
     );
     if (intersects.length > 0) {
       const isFloor = intersects[0].object.name === "Floor_5_FlMtl";
-      // console.log('name', intersects[0].object);
-      // console.log('name', intersects[0].object.name);
-      // console.log('normal', intersects[0].face.normal);
-      
       const endDelta = intersects[0].point;
       const diagonal = getDiagonal(startDelta, endDelta);
       if (diagonal < 15 && isFloor) {
@@ -68,13 +64,25 @@ const Room = ({ getClickPointXYZ }) => {
       }
     }
   };
+  const handlePointerMove = (event) => {
+    const normalizedPoint = getNormalizedPoint(event, domElement);
+    raycaster.setFromCamera(normalizedPoint, camera);
+    const intersects = raycaster.intersectObjects(
+      roomRef.current.children,
+      true
+    );
+    if (intersects.length > 0) {
+     getPointer(intersects[0].point);
+    }
+  };
 
   return (
     <primitive
       object={room}
       ref={roomRef}
-      onPointerDown={(e) => handlePointerDown(e)}
-      onPointerUp={(e) => handlePointerUp(e)}
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      onPointerMove={handlePointerMove}
     />
   );
 };
