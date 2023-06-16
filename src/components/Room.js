@@ -5,7 +5,7 @@ import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { Textures as getTextures, getDiagonal } from "../utils";
 import * as THREE from "three";
 
-const Room = ({ getClickPointXYZ, getPointer }) => {
+const Room = ({ getClickPointXYZ, getPointerPos, getPointerNormal }) => {
   const {
     raycaster,
     camera,
@@ -72,7 +72,8 @@ const Room = ({ getClickPointXYZ, getPointer }) => {
       true
     );
     if (intersects.length > 0) {
-     getPointer(intersects[0].point);
+      getPointerPos(intersects[0].point);
+      getPointerNormal(intersects[0].face.normal);
     }
   };
 
