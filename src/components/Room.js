@@ -9,7 +9,7 @@ const Room = ({ getClickPointXYZ }) => {
   const {
     raycaster,
     camera,
-    mouse,
+    // mouse,
     gl: { domElement },
   } = useThree();
   const Textures = getTextures(useLoader, TextureLoader);
@@ -54,11 +54,14 @@ const Room = ({ getClickPointXYZ }) => {
       true
     );
     if (intersects.length > 0) {
-      // console.log(intersects[0].face);
+      const isFloor = intersects[0].object.name === "Floor_5_FlMtl";
+      // console.log('name', intersects[0].object);
+      // console.log('name', intersects[0].object.name);
       // console.log('normal', intersects[0].face.normal);
+      
       const endDelta = intersects[0].point;
       const diagonal = getDiagonal(startDelta, endDelta);
-      if (diagonal < 15) {
+      if (diagonal < 15 && isFloor) {
         getClickPointXYZ(endDelta);
       } else {
         getClickPointXYZ(null);

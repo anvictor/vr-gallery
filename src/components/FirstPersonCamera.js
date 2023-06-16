@@ -7,9 +7,8 @@ import { getPointCloserToEnd, getWay } from "../utils";
 export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
   const raycaster = new THREE.Raycaster();
   const mouse = new THREE.Vector2();
-  let [go, setGo] = useState(goTo);
-  const [way, setWay] = useState([]); 
-  const [currentStep, setCurrentStep] = useState(0); 
+  const [way, setWay] = useState([]);
+  const [currentStep, setCurrentStep] = useState(0);
   const {
     camera,
     scene,
@@ -33,7 +32,11 @@ export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
     const intersects = raycaster.intersectObjects(scene.children, true);
 
     if (intersects.length > 0) {
-      // console.log("name", intersects[0].object.name);
+      const firstIntersection = intersects[0];
+
+      // console.log("name:", firstIntersection.object.name);
+      // console.log("Intersection point:", firstIntersection.point);
+      // console.log("Intersection normal:", firstIntersection.face.normal);
     }
     const moveSpeed = 1.5;
     if (mouseDown) {
@@ -48,13 +51,13 @@ export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
     if (goTo) {
       const startPosition = camera.position;
       const finishPosition = getPointCloserToEnd(goTo, startPosition, 10);
-  
+
       // Only calculate the way once per goTo request
       if (way.length === 0 && currentStep === 0) {
         const calculatedWay = getWay(startPosition, finishPosition, 30);
         setWay(calculatedWay);
-      } 
-  
+      }
+
       // Move the camera along the way if there's more to go
       if (way.length > currentStep) {
         const [x, z] = way[currentStep];
