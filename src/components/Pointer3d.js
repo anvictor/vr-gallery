@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { useLoader } from "@react-three/fiber";
-import { TextureLoader } from "three";
+import { TextureLoader, Vector3, Quaternion } from "three";
 
 const Pointer3d = ({ position, normal }) => {
   console.log("normal", normal);
+
   // Load the texture using useLoader
   const texture = useLoader(TextureLoader, "logo512.png"); // Adjust the path if needed
+  const meshRef = useRef();
+
+  useEffect(() => {
+    if (normal && meshRef.current) {
+      const up = new Vector3(0, 1, 0); // Y-axis
+      const quaternion = new Quaternion().setFromUnitVectors(up, normal);
+      meshRef.current.quaternion.copy(quaternion);
+    }
+  }, [normal]);
 
   return (
-    <mesh position={position} castShadow={true}>
+    <mesh ref={meshRef} position={position} castShadow={true}>
       <boxGeometry args={[20, 2, 20]} />
       <meshStandardMaterial map={texture} />{" "}
       {/* Assign the loaded texture as a map */}
