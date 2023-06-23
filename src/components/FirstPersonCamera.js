@@ -33,8 +33,7 @@ export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
 
     if (intersects.length > 0) {
       const firstIntersection = intersects[0];
-
-      // console.log("name:", firstIntersection.object.name);
+      console.log("name:", firstIntersection.object.name);
       // console.log("Intersection point:", firstIntersection.point);
       // console.log("Intersection normal:", firstIntersection.face.normal);
     }
