@@ -3,7 +3,7 @@ import { useLoader } from "@react-three/fiber";
 import { TextureLoader, Vector3, Quaternion } from "three";
 
 const Pointer3d = ({ position, normal }) => {
-  if(normal)console.log(`x,y,z, ${Math.round(normal.x)}${Math.round(normal.y)}${Math.round(normal.z)}`)
+  // if(normal)console.log(`x,y,z, ${Math.round(normal.x)}${Math.round(normal.y)}${Math.round(normal.z)}`)
 
   // Load the texture using useLoader
   const texture = useLoader(TextureLoader, "logo512.png"); // Adjust the path if needed

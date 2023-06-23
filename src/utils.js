@@ -142,14 +142,7 @@ const Textures = (useLoader, TextureLoader) => {
       aoMap: useLoader(TextureLoader, "/room/skin1/walls_aoMap.jpg"),
     },
     Wall_Outside_11_None: {
-      colorMap: useLoader(TextureLoader, "/room/skin1/walls_lightMap.jpg"),
-      displacementMap: useLoader(TextureLoader, "/room/skin1/walls_map.jpg"),
-      normalMap: useLoader(TextureLoader, "/room/skin1/walls_normalMap.jpg"),
-      roughnessMap: useLoader(
-        TextureLoader,
-        "/room/skin1/walls_roughnessMap.jpg"
-      ),
-      aoMap: useLoader(TextureLoader, "/room/skin1/walls_aoMap.jpg"),
+      colorMap: useLoader(TextureLoader, "/paintings/LunarMood.jpg"),
     },
   };
 };

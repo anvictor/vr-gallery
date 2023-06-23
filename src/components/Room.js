@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { useLoader, useThree } from "@react-three/fiber";
+import { useTexture } from '@react-three/drei';
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { Textures as getTextures, getDiagonal } from "../utils";
 import * as THREE from "three";
 
 const Room = ({ getClickPointXYZ, getPointerPos, getPointerNormal }) => {
+  const texture = useTexture('/paintings/RedBrickWallTexture.jpeg');
+
   const {
     raycaster,
     camera,
@@ -19,6 +22,10 @@ const Room = ({ getClickPointXYZ, getPointerPos, getPointerNormal }) => {
   room.position.y = 0;
   room.position.z = -59;
   room.traverse((child) => {
+    if (child.name === "Wall_Outside_11_None") {
+      child.side = THREE.DoubleSide;
+      child.isMesh = true;
+    }
     if (child.isMesh && child.name && Textures) {
       child.material.map = Textures[child.name].colorMap;
       child.material.displacementMap = Textures[child.name].displacementMap;
@@ -72,8 +79,10 @@ const Room = ({ getClickPointXYZ, getPointerPos, getPointerNormal }) => {
       true
     );
     if (intersects.length > 0) {
+      if(intersects[0].object.name!=='Wall_Outside_11_None'){
+        getPointerNormal(intersects[0].face.normal);
+      }
       getPointerPos(intersects[0].point);
-      getPointerNormal(intersects[0].face.normal);
     }
   };
 
