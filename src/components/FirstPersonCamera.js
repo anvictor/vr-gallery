@@ -2,20 +2,28 @@ import { useRef, useEffect, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import useControls from "../controls/controls";
-import { getPointCloserToEnd, getWay } from "../utils";
+import { getPointCloserToEnd, getWay, pointIsOutsidePolygons } from "../utils";
+import { polygons } from "../controls/roomBorders";
 
 export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
   const raycaster = new THREE.Raycaster();
   const mouse = new THREE.Vector2();
   const [way, setWay] = useState([]);
+  const [outside, setOutside] = useState(true);
+
   const [currentStep, setCurrentStep] = useState(0);
+
   const {
     camera,
     scene,
     gl: { domElement },
   } = useThree();
   const cameraRef = useRef();
-  const [moveState, mouseDown, mousePos, keyDown] = useControls(domElement);
+  const [moveState, mouseDown, mousePos, keyDown] = useControls(
+    domElement,
+  );
+ 
+
   camera.position.y = 179;
   camera.far = 2000;
   getIsKeyDown(keyDown);
@@ -26,6 +34,7 @@ export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
       camera.rotation.order = "XYZ";
     };
   }, [camera, domElement]);
+  
 
   useFrame(() => {
     raycaster.setFromCamera(mouse, camera);
@@ -33,7 +42,7 @@ export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
 
     if (intersects.length > 0) {
       const firstIntersection = intersects[0];
-      console.log("name:", firstIntersection.object.name);
+      // console.log("name:", firstIntersection.object.name);
       // console.log("Intersection point:", firstIntersection.point);
       // console.log("Intersection normal:", firstIntersection.face.normal);
     }
@@ -73,6 +82,8 @@ export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
 
     const direction = new THREE.Vector3();
     camera.getWorldDirection(direction);
+    setOutside(pointIsOutsidePolygons(camera.position, polygons));
+    console.log(outside);
     if (moveState.forward) {
       camera.position.add(direction.multiplyScalar(moveSpeed));
       camera.position.y = 179;

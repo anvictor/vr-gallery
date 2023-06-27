@@ -43,6 +43,9 @@ const Room = ({ getClickPointXYZ, getPointerPos, getPointerNormal }) => {
       true
     );
     if (intersects.length > 0) {
+      const x= Math.round(intersects[0].point.x)
+      const z= Math.round(intersects[0].point.z)
+      console.log('x, z',x,z);
       setstartDelta(intersects[0].point);
     }
   };

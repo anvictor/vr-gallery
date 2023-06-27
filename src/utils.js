@@ -189,4 +189,29 @@ const getWay = (startPosition, finishPosition, steps) => {
   return way;
 };
 
-export { Textures, getDiagonal, getPointCloserToEnd, getWay };
+const pointIsOutsidePolygons = (point, polygons) => {
+  for (let polygon of polygons) {
+    let inside = false;
+    for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+      let xi = polygon[i].x,
+        zi = polygon[i].z;
+      let xj = polygon[j].x,
+        zj = polygon[j].z;
+
+      let intersect =
+        zi > point.z != zj > point.z &&
+        point.x < ((xj - xi) * (point.z - zi)) / (zj - zi) + xi;
+      if (intersect) inside = !inside;
+    }
+    if (inside) return false; // point is inside one of the polygons
+  }
+  return true; // point is outside all polygons
+};
+
+export {
+  Textures,
+  getDiagonal,
+  getPointCloserToEnd,
+  getWay,
+  pointIsOutsidePolygons,
+};

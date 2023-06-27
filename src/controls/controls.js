@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 
 const keys = {
-  w: "forward",
-  a: "left",
-  s: "backward",
-  d: "right",
+  KeyW: "forward",
   ArrowUp: "forward",
+  KeyS: "backward",
   ArrowDown: "backward",
+  KeyA: "left",
   ArrowLeft: "left",
+  KeyD: "right",
   ArrowRight: "right",
 };
 
@@ -24,12 +24,12 @@ export default function useControls(domElement) {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      setkeyDown(true);
-      return setMoveState((s) => ({ ...s, [keys[event.key]]: true }));
+        setkeyDown(true);
+        return setMoveState((s) => ({ ...s, [keys[event.code]]: true }));
     };
     const handleKeyUp = (event) => {
       setkeyDown(false);
-      return setMoveState((s) => ({ ...s, [keys[event.key]]: false }));
+      return setMoveState((s) => ({ ...s, [keys[event.code]]: false }));
     };
     const handleMouseDown = () => {
       setMouseDown(true);
