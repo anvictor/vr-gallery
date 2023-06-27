@@ -189,7 +189,7 @@ const getWay = (startPosition, finishPosition, steps) => {
   return way;
 };
 
-const pointIsOutsidePolygons = (point, polygons) => {
+const pointIsOutsideWalls = (point, polygons) => {
   for (let polygon of polygons) {
     let inside = false;
     for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
@@ -213,5 +213,5 @@ export {
   getDiagonal,
   getPointCloserToEnd,
   getWay,
-  pointIsOutsidePolygons,
+  pointIsOutsideWalls,
 };

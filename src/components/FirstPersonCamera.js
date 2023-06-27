@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import useControls from "../controls/controls";
-import { getPointCloserToEnd, getWay, pointIsOutsidePolygons } from "../utils";
+import { getPointCloserToEnd, getWay, pointIsOutsideWalls } from "../utils";
 import { polygons } from "../controls/roomBorders";
 
 export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
@@ -82,8 +82,8 @@ export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
 
     const direction = new THREE.Vector3();
     camera.getWorldDirection(direction);
-    setOutside(pointIsOutsidePolygons(camera.position, polygons));
-    console.log(outside);
+    
+    const previousPosition = camera.position.clone();
     if (moveState.forward) {
       camera.position.add(direction.multiplyScalar(moveSpeed));
       camera.position.y = 179;
@@ -96,6 +96,11 @@ export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
     right.crossVectors(camera.up, direction).normalize();
     if (moveState.right) camera.position.sub(right.multiplyScalar(moveSpeed));
     if (moveState.left) camera.position.add(right.multiplyScalar(moveSpeed));
+    setOutside(pointIsOutsideWalls(camera.position, polygons));
+  if (!outside) {
+    // If we are inside a polygon, reset to the previous position
+    camera.position.copy(previousPosition);
+  }
   });
 
   return null;
