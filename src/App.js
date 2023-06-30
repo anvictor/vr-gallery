@@ -7,7 +7,9 @@ import FirstPersonCamera from "./components/FirstPersonCamera";
 import Pointer3d from "./components/Pointer3d";
 import Painting from "./components/Painting";
 import Paintings from './components/Paintings.json';
-
+/**
+ unComment SceneInspector to inspect scene
+ */
 const SceneInspector = () => {
   const { scene } = useThree();
   console.log(scene);
@@ -19,7 +21,6 @@ const App = () => {
   const [clickPoint, setClickPoint] = useState(null);
   const [position, setPosition] = useState(null);
   const [normal, setNormal] = useState(null);
-  const paintings = Paintings;
   useEffect(() => {
     if (isKeyDown) setClickPoint(null);
   }, [isKeyDown]);
@@ -42,16 +43,13 @@ const App = () => {
         />
         <FirstPersonCamera goTo={clickPoint} getIsKeyDown={setisKeyDown} />
         <Pointer3d position={position} normal={normal} />
-        {paintings.map((painting, index) => (
+        {Paintings.map((painting) => (
           <Painting
-            key={index}
-            width={painting.width}
-            height={painting.height}
-            imageUrl={painting.imageUrl}
-            position={painting.position}
+            key={painting.id}
+            data={painting}
           />
         ))}
-        {/* <SceneInspector /> */}
+        {/* <SceneInspector /> //unComment inspect */}
       </Canvas>
     </div>
   );

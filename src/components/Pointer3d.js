@@ -21,7 +21,6 @@ const Pointer3d = ({ position, normal }) => {
     <mesh ref={meshRef} position={position} castShadow={true}>
       <boxGeometry args={[20, 2, 20]} />
       <meshStandardMaterial map={texture} />{" "}
-      {/* Assign the loaded texture as a map */}
     </mesh>
   );
 };
