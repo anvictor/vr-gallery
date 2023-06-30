@@ -6,8 +6,7 @@ import Room from "./components/Room";
 import FirstPersonCamera from "./components/FirstPersonCamera";
 import Pointer3d from "./components/Pointer3d";
 import Painting from "./components/Painting";
-// import Afro from './paintings/Afro.jpg';
-// import Album from './painting/Album.jpg';
+import Paintings from './components/Paintings.json';
 
 const SceneInspector = () => {
   const { scene } = useThree();
@@ -20,22 +19,7 @@ const App = () => {
   const [clickPoint, setClickPoint] = useState(null);
   const [position, setPosition] = useState(null);
   const [normal, setNormal] = useState(null);
-
-  const paintings = [
-    {
-      width: 50,
-      height: 70,
-      imageUrl: "/paintings/Afro.jpg",
-      position: [0, 100, 0],
-    },
-    {
-      width: 70,
-      height: 50,
-      imageUrl: "/paintings/Album.jpg",
-      position: [90, 100, 0],
-    },
-    // add more paintings here...
-  ];
+  const paintings = Paintings;
   useEffect(() => {
     if (isKeyDown) setClickPoint(null);
   }, [isKeyDown]);

@@ -1,0 +1,147 @@
+[
+    {
+      "id": "paintId:00",
+      "width": 1000,
+      "height": 1000,
+      "author": "Sweetlana Andreychenko",
+      "name": "hi",
+      "imageUrl": "/paintings/Hi.jpg",
+      "position": [0, 100, -100]
+    },
+    {
+      "id": "paintId:01",
+      "width": 500,
+      "height": 400,
+      "author": "Sweetlana Andreychenko",
+      "name": "sea",
+      "imageUrl": "/paintings/Sea.jpg",
+      "position": [0, 100, -110]
+    },
+    {
+      "id": "paintId:02",
+      "width": 595,
+      "height": 420,
+      "author": "Sweetlana Andreychenko",
+      "name": "dream",
+      "imageUrl": "/paintings/Dream.jpg",
+      "position": [0, 100, -120]
+    },
+    {
+      "id": "paintId:03",
+      "width": 700,
+      "height": 500,
+      "author": "Sweetlana Andreychenko",
+      "name": "cheese",
+      "imageUrl": "/paintings/Cheese.jpg",
+      "position": [0, 100, -130]
+    },
+    {
+      "id": "paintId:04",
+      "width": 280,
+      "height": 400,
+      "author": "Sweetlana Andreychenko",
+      "name": "afro",
+      "imageUrl": "/paintings/Afro.jpg",
+      "position": [0, 100, -140]
+    },
+    {
+      "id": "paintId:05",
+      "width": 400,
+      "height": 280,
+      "author": "Sweetlana Andreychenko",
+      "name": "llamas",
+      "imageUrl": "/paintings/Llamas.jpg",
+      "position": [0, 100, -150]
+    },
+    {
+      "id": "paintId:06",
+      "width": 400,
+      "height": 280,
+      "author": "Sweetlana Andreychenko",
+      "name": "boat",
+      "imageUrl": "/paintings/Boat.jpg",
+      "position": [0, 100, -160]
+    },
+    {
+      "id": "paintId:07",
+      "width": 420,
+      "height": 270,
+      "author": "Viktor Andreichenko",
+      "name": "venice",
+      "imageUrl": "/paintings/Venice.jpg",
+      "position": [0, 100, -170]
+    },
+    {
+      "id": "paintId:08",
+      "width": 300,
+      "height": 400,
+      "author": "Viktor Andreichenko",
+      "name": "kabu",
+      "imageUrl": "/paintings/Kabu.jpg",
+      "position": [0, 100, -180]
+    },
+    {
+      "id": "paintId:09",
+      "width": 600,
+      "height": 400,
+      "author": "Viktor Andreichenko",
+      "name": "album",
+      "imageUrl": "/paintings/Album.jpg",
+      "position": [0, 100, -190]
+    },
+    {
+      "id": "paintId:10",
+      "width": 600,
+      "height": 400,
+      "author": "Viktor Andreichenko",
+      "name": "groom",
+      "imageUrl": "/paintings/Groom.jpg",
+      "position": [0, 100, -200]
+    },
+    {
+      "id": "paintId:11",
+      "width": 400,
+      "height": 280,
+      "author": "Viktor Andreichenko",
+      "name": "artists",
+      "imageUrl": "/paintings/Artists.jpg",
+      "position": [0, 100, -210]
+    },
+    {
+      "id": "paintId:12",
+      "width": 600,
+      "height": 500,
+      "author": "Viktor Andreichenko",
+      "name": "door",
+      "imageUrl": "/paintings/Door.jpg",
+      "position": [0, 100, -220]
+    },
+    {
+      "id": "paintId:13",
+      "width": 500,
+      "height": 600,
+      "author": "Viktor Andreichenko",
+      "name": "portrait",
+      "imageUrl": "/paintings/Portrait.jpg",
+      "position": [0, 100, -230]
+    },
+    {
+      "id": "paintId:14",
+      "width": 390,
+      "height": 290,
+      "author": "Viktor Andreichenko",
+      "name": "china",
+      "imageUrl": "/paintings/China.jpg",
+      "position": [0, 100, -240]
+    },
+    {
+      "id": "paintId:15",
+      "width": 100,
+      "height": 100,
+      "author": "Marker",
+      "name": "marker",
+      "imageUrl": "/paintings/Marker.png",
+      "position": [0, 100, -250]
+    }
+  ]
+  
