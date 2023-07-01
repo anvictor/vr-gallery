@@ -10,11 +10,11 @@ import Paintings from './components/Paintings.json';
 /**
  unComment SceneInspector to inspect scene
  */
-const SceneInspector = () => {
-  const { scene } = useThree();
-  console.log(scene);
-  return null;
-};
+// const SceneInspector = () => {
+//   const { scene } = useThree();
+//   console.log(scene);
+//   return null;
+// };
 
 const App = () => {
   const [isKeyDown, setisKeyDown] = useState(false);
@@ -24,12 +24,10 @@ const App = () => {
   useEffect(() => {
     if (isKeyDown) setClickPoint(null);
   }, [isKeyDown]);
+
   return (
-    <div
-      id="canvas-container"
-      style={{ backgroundColor: "grey", height: "500px" }}
-    >
-      <Canvas>
+    
+    <Canvas className="canvasScene">
         <ambientLight intensity={0.5} />
         <directionalLight
           color="white"
@@ -51,7 +49,6 @@ const App = () => {
         ))}
         {/* <SceneInspector /> //unComment inspect */}
       </Canvas>
-    </div>
   );
 };
 const root = document.getElementById("root");
