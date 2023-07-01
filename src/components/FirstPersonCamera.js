@@ -19,10 +19,7 @@ export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
     gl: { domElement },
   } = useThree();
   const cameraRef = useRef();
-  const [moveState, mouseDown, mousePos, keyDown] = useControls(
-    domElement,
-  );
- 
+  const [moveState, mouseDown, mousePos, keyDown] = useControls(domElement);
 
   camera.position.y = 179;
   camera.far = 2000;
@@ -34,22 +31,21 @@ export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
       camera.rotation.order = "XYZ";
     };
   }, [camera, domElement]);
-  
 
   useFrame(() => {
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(scene.children, true);
-
+    const rotationSpeed = 2;
     if (intersects.length > 0) {
       const firstIntersection = intersects[0];
       // console.log("name:", firstIntersection.object.name);
       // console.log("Intersection point:", firstIntersection.point);
       // console.log("Intersection normal:", firstIntersection.face.normal);
     }
-    const moveSpeed = 1.5;
+    const moveSpeed = 2;
     if (mouseDown) {
-      camera.rotation.y -= mousePos.x;
-      camera.rotation.x -= mousePos.y;
+      camera.rotation.y -= rotationSpeed * mousePos.x;
+      camera.rotation.x -= rotationSpeed * mousePos.y;
       camera.rotation.x = Math.max(
         -Math.PI / 2,
         Math.min(Math.PI / 2, camera.rotation.x)
@@ -82,7 +78,7 @@ export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
 
     const direction = new THREE.Vector3();
     camera.getWorldDirection(direction);
-    
+
     const previousPosition = camera.position.clone();
     if (moveState.forward) {
       camera.position.add(direction.multiplyScalar(moveSpeed));
@@ -97,10 +93,10 @@ export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
     if (moveState.right) camera.position.sub(right.multiplyScalar(moveSpeed));
     if (moveState.left) camera.position.add(right.multiplyScalar(moveSpeed));
     setOutside(pointIsOutsideWalls(camera.position, polygons));
-  if (!outside) {
-    // If we are inside a polygon, reset to the previous position
-    camera.position.copy(previousPosition);
-  }
+    if (!outside) {
+      // If we are inside a polygon, reset to the previous position
+      camera.position.copy(previousPosition);
+    }
   });
 
   return null;

@@ -23,10 +23,10 @@ const Room = ({ getClickPointXYZ, getPointerPos, getPointerNormal }) => {
   room.position.z = -59;
   room.traverse((child) => {
     if (child.name === "Wall_Outside_11_None") {
-      child.side = THREE.DoubleSide;
+      child.side = THREE.FrontSide;
       child.isMesh = true;
     }
-    if (child.isMesh && child.name && Textures) {
+    if ( child.name && Textures) {
       child.material.map = Textures[child.name].colorMap;
       child.material.displacementMap = Textures[child.name].displacementMap;
       child.material.normalMap = Textures[child.name].normalMap;
@@ -83,7 +83,7 @@ const Room = ({ getClickPointXYZ, getPointerPos, getPointerNormal }) => {
       true
     );
     if (intersects.length > 0) {
-      if(intersects[0].object.name!=='Wall_Outside_11_None'){
+      if(intersects[0].object.name!=='Wall_Outside_11_Noneb'){
         getPointerNormal(intersects[0].face.normal);
       }
       getPointerPos(intersects[0].point);
