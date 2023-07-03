@@ -21,7 +21,7 @@ export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
   const cameraRef = useRef();
   const [moveState, mouseDown, mousePos, keyDown] = useControls(domElement);
 
-  camera.position.y = 179;
+  camera.position.y = 180;
   camera.far = 2000;
   getIsKeyDown(keyDown);
   useEffect(() => {
@@ -80,16 +80,18 @@ export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
     camera.getWorldDirection(direction);
 
     const previousPosition = camera.position.clone();
+   
+    const right = new THREE.Vector3();
+    right.crossVectors(camera.up, direction).normalize();
+
     if (moveState.forward) {
       camera.position.add(direction.multiplyScalar(moveSpeed));
-      camera.position.y = 179;
+      camera.position.y = 180;
     }
     if (moveState.backward) {
       camera.position.sub(direction.multiplyScalar(moveSpeed));
-      camera.position.y = 179;
+      camera.position.y = 180;
     }
-    const right = new THREE.Vector3();
-    right.crossVectors(camera.up, direction).normalize();
     if (moveState.right) camera.position.sub(right.multiplyScalar(moveSpeed));
     if (moveState.left) camera.position.add(right.multiplyScalar(moveSpeed));
     setOutside(pointIsOutsideWalls(camera.position, polygons));

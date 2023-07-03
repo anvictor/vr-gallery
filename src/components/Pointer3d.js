@@ -20,7 +20,7 @@ const Pointer3d = ({ position, normal }) => {
   return (
     <mesh ref={meshRef} position={position} castShadow={true}>
       <boxGeometry args={[20, 2, 20]} />
-      <meshStandardMaterial map={texture} />{" "}
+      <meshStandardMaterial map={texture} />
     </mesh>
   );
 };

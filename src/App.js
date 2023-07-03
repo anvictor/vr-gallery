@@ -6,7 +6,7 @@ import Room from "./components/Room";
 import FirstPersonCamera from "./components/FirstPersonCamera";
 import Pointer3d from "./components/Pointer3d";
 import Painting from "./components/Painting";
-import Paintings from './components/Paintings.json';
+import Paintings from "./components/Paintings.json";
 /**
  unComment SceneInspector to inspect scene
  */
@@ -26,29 +26,25 @@ const App = () => {
   }, [isKeyDown]);
 
   return (
-    
     <Canvas className="canvasScene">
-        <ambientLight intensity={0.5} />
-        <directionalLight
-          color="white"
-          position={[350, 400, -400]}
-          intensity={0.5}
-        />
-        <Room
-          getClickPointXYZ={setClickPoint}
-          getPointerPos={setPosition}
-          getPointerNormal={setNormal}
-        />
-        <FirstPersonCamera goTo={clickPoint} getIsKeyDown={setisKeyDown} />
-        <Pointer3d position={position} normal={normal} />
-        {Paintings.map((painting) => (
-          <Painting
-            key={painting.id}
-            data={painting}
-          />
-        ))}
-        {/* <SceneInspector /> //unComment inspect */}
-      </Canvas>
+      <ambientLight intensity={0.5} />
+      <directionalLight
+        color="white"
+        position={[350, 400, -400]}
+        intensity={0.5}
+      />
+      <Room
+        getClickPointXYZ={setClickPoint}
+        getPointerPos={setPosition}
+        getPointerNormal={setNormal}
+      />
+      <FirstPersonCamera goTo={clickPoint} getIsKeyDown={setisKeyDown} />
+      <Pointer3d position={position} normal={normal} />
+      {Paintings.map((painting) => (
+        <Painting key={painting.id} data={painting} />
+      ))}
+      {/* <SceneInspector /> //unComment inspect */}
+    </Canvas>
   );
 };
 const root = document.getElementById("root");
