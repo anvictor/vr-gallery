@@ -37,8 +37,9 @@ export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
     const intersects = raycaster.intersectObjects(scene.children, true);
     const rotationSpeed = 2;
     if (intersects.length > 0) {
-      const firstIntersection = intersects[0];
-      // console.log("name:", firstIntersection.object.name);
+
+      // const firstIntersection = intersects[0];
+      // console.log("firstIntersection:", firstIntersection);
       // console.log("Intersection point:", firstIntersection.point);
       // console.log("Intersection normal:", firstIntersection.face.normal);
     }

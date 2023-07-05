@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { useLoader, useThree } from "@react-three/fiber";
-import { useTexture } from '@react-three/drei';
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { Textures as getTextures, getDiagonal } from "../utils";
 import * as THREE from "three";
 
 const Room = ({ getClickPointXYZ, getPointerPos, getPointerNormal }) => {
-  const texture = useTexture('/paintings/RedBrickWallTexture.jpeg');
 
   const {
     raycaster,
@@ -46,7 +44,7 @@ const Room = ({ getClickPointXYZ, getPointerPos, getPointerNormal }) => {
       const x= Math.round(intersects[0].point.x)
       const y= Math.round(intersects[0].point.y)
       const z= Math.round(intersects[0].point.z)
-      //console.log('x, y, z',x,y,z); //
+      console.log('x, y, z',x,y,z); // xyz
       setstartDelta(intersects[0].point);
     }
   };

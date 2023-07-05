@@ -7,14 +7,16 @@ import FirstPersonCamera from "./components/FirstPersonCamera";
 import Pointer3d from "./components/Pointer3d";
 import Painting from "./components/Painting";
 import Paintings from "./components/Paintings.json";
+import MonitorTV from "./components/MonitorTV";
 /**
- unComment SceneInspector to inspect scene
+ Inspect=true to inspect scene
  */
-// const SceneInspector = () => {
-//   const { scene } = useThree();
-//   console.log(scene);
-//   return null;
-// };
+const Inspect = false;
+const SceneInspector = () => {
+  const { scene } = useThree();
+  console.log(scene);
+  return null;
+};
 
 const App = () => {
   const [isKeyDown, setisKeyDown] = useState(false);
@@ -43,7 +45,8 @@ const App = () => {
       {Paintings.map((painting) => (
         <Painting key={painting.id} data={painting} />
       ))}
-      {/* <SceneInspector /> //unComment inspect */}
+      <MonitorTV />
+      {Inspect && <SceneInspector />}
     </Canvas>
   );
 };
