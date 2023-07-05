@@ -142,7 +142,7 @@ const Textures = (useLoader, TextureLoader) => {
       aoMap: useLoader(TextureLoader, "/room/skin1/walls_aoMap.jpg"),
     },
     Wall_Outside_11_None: {
-      colorMap: useLoader(TextureLoader, "/paintings/LunarMood.jpg"),
+      colorMap: useLoader(TextureLoader, "/util_Imgs/LunarMood.jpg"),
     },
   };
 };
