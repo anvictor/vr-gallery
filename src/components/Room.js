@@ -80,12 +80,12 @@ const Room = ({ getClickPointXYZ, getPointerPos, getPointerNormal }) => {
       roomRef.current.children,
       true
     );
-    if (intersects.length > 0) {
-      if(intersects[0].object.name!=='Wall_Outside_11_Noneb'){
-        getPointerNormal(intersects[0].face.normal);
-      }
-      getPointerPos(intersects[0].point);
-    }
+    // if (intersects.length > 0) {
+    //   if(intersects[0].object.name!=='Wall_Outside_11_Noneb'){
+    //     getPointerNormal(intersects[0].face.normal);
+    //     getPointerPos(intersects[0].point);
+    //   }
+    // }
   };
 
   return (

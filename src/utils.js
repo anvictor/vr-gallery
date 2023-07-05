@@ -199,7 +199,7 @@ const pointIsOutsideWalls = (point, polygons) => {
         zj = polygon[j].z;
 
       let intersect =
-        zi > point.z != zj > point.z &&
+        zi > point.z !== zj > point.z &&
         point.x < ((xj - xi) * (point.z - zi)) / (zj - zi) + xi;
       if (intersect) inside = !inside;
     }

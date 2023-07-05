@@ -43,7 +43,7 @@ const App = () => {
         getPointerNormal={setNormal}
       />
       <FirstPersonCamera goTo={clickPoint} getIsKeyDown={setisKeyDown} />
-      <Pointer3d position={position} normal={normal} />
+      {/* <Pointer3d position={position} normal={normal} /> */}
       {Paintings.map((painting) => (
         <Painting key={painting.id} data={painting} />
       ))}
