@@ -22,7 +22,7 @@ export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
   const [moveState, mouseDown, mousePos, keyDown] = useControls(domElement);
 
   camera.position.y = 180;
-  camera.far = 2000;
+  camera.far = 5000;
   getIsKeyDown(keyDown);
   useEffect(() => {
     cameraRef.current = camera;

@@ -8,6 +8,7 @@ import Pointer3d from "./components/Pointer3d";
 import Painting from "./components/Painting";
 import Paintings from "./components/Paintings.json";
 import MonitorTV from "./components/MonitorTV";
+import Environment3d from "./components/Environment3d";
 /**
  Inspect=true to inspect scene
  */
@@ -29,6 +30,7 @@ const App = () => {
 
   return (
     <Canvas className="canvasScene">
+      <Environment3d/>
       <ambientLight intensity={0.5} />
       <directionalLight
         color="white"
