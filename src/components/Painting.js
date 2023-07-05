@@ -3,15 +3,22 @@ import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
 import Label from "./Label";
 
-const Painting = ({ data }) => {
+const Painting = ({ data, getFlyData }) => {
   const { position, imageUrl, width, height, rotation, name, author } = data;
   const texture = useTexture(imageUrl);
   const backTexture = useTexture("/paintings/CanvasBackSide.jpg");
   const shadowTexture = useTexture("/paintings/SquareShadowBlack.png");
   const brightness = 80;
+  const pos3d = new THREE.Vector3(1, 0, 0);
+  const handleClick = () => {
+    pos3d.x = position[0];
+    pos3d.y = position[1];
+    pos3d.z = position[2];
+    getFlyData(pos3d);
+  };
 
   return (
-    <group position={position} rotation={rotation}>
+    <group position={position} rotation={rotation} onClick={handleClick}>
       <mesh position={[0, 0, 2]}>
         <boxGeometry args={[width / 10, height / 10, 2]} />
         <meshBasicMaterial
@@ -42,13 +49,7 @@ const Painting = ({ data }) => {
           transparent={true}
         />
       </mesh>
-      <Label
-        author={author}
-        name={name}
-        width={width}
-        height={height}
-      />
-
+      <Label author={author} name={name} width={width} height={height} />
     </group>
   );
 };

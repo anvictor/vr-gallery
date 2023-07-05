@@ -4,7 +4,7 @@ import { createRoot } from "react-dom/client";
 import { Canvas, useThree } from "@react-three/fiber";
 import Room from "./components/Room";
 import FirstPersonCamera from "./components/FirstPersonCamera";
-import Pointer3d from "./components/Pointer3d";
+// import Pointer3d from "./components/Pointer3d";
 import Painting from "./components/Painting";
 import Paintings from "./components/Paintings.json";
 import MonitorTV from "./components/MonitorTV";
@@ -22,8 +22,8 @@ const SceneInspector = () => {
 const App = () => {
   const [isKeyDown, setisKeyDown] = useState(false);
   const [clickPoint, setClickPoint] = useState(null);
-  const [position, setPosition] = useState(null);
-  const [normal, setNormal] = useState(null);
+  // const [position, setPosition] = useState(null);
+  // const [normal, setNormal] = useState(null);
   useEffect(() => {
     if (isKeyDown) setClickPoint(null);
   }, [isKeyDown]);
@@ -39,13 +39,15 @@ const App = () => {
       />
       <Room
         getClickPointXYZ={setClickPoint}
-        getPointerPos={setPosition}
-        getPointerNormal={setNormal}
+        getPointerPos={null}
+        getPointerNormal={null}
+        // getPointerPos={setPosition}
+        // getPointerNormal={setNormal}
       />
       <FirstPersonCamera goTo={clickPoint} getIsKeyDown={setisKeyDown} />
       {/* <Pointer3d position={position} normal={normal} /> */}
       {Paintings.map((painting) => (
-        <Painting key={painting.id} data={painting} />
+        <Painting key={painting.id} data={painting} getFlyData={setClickPoint} />
       ))}
       <MonitorTV />
       {Inspect && <SceneInspector />}

@@ -5,7 +5,10 @@ import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { Textures as getTextures, getDiagonal } from "../utils";
 import * as THREE from "three";
 
-const Room = ({ getClickPointXYZ, getPointerPos, getPointerNormal }) => {
+const Room = ({ getClickPointXYZ, 
+  // getPointerPos, 
+  getPointerNormal 
+}) => {
 
   const {
     raycaster,
@@ -41,10 +44,10 @@ const Room = ({ getClickPointXYZ, getPointerPos, getPointerNormal }) => {
       true
     );
     if (intersects.length > 0) {
-      const x= Math.round(intersects[0].point.x)
-      const y= Math.round(intersects[0].point.y)
-      const z= Math.round(intersects[0].point.z)
-      console.log('x, y, z',x,y,z); // xyz
+      // const x= Math.round(intersects[0].point.x)
+      // const y= Math.round(intersects[0].point.y)
+      // const z= Math.round(intersects[0].point.z)
+      // console.log('x, y, z',x,y,z); // xyz
       setstartDelta(intersects[0].point);
     }
   };
@@ -80,12 +83,12 @@ const Room = ({ getClickPointXYZ, getPointerPos, getPointerNormal }) => {
       roomRef.current.children,
       true
     );
-    // if (intersects.length > 0) {
+    if (intersects.length > 0) {
     //   if(intersects[0].object.name!=='Wall_Outside_11_Noneb'){
     //     getPointerNormal(intersects[0].face.normal);
     //     getPointerPos(intersects[0].point);
     //   }
-    // }
+    }
   };
 
   return (

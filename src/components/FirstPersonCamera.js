@@ -6,6 +6,7 @@ import { getPointCloserToEnd, getWay, pointIsOutsideWalls } from "../utils";
 import { polygons } from "../controls/roomBorders";
 
 export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
+//  console.log(goTo);
   const raycaster = new THREE.Raycaster();
   const mouse = new THREE.Vector2();
   const [way, setWay] = useState([]);
@@ -37,7 +38,6 @@ export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
     const intersects = raycaster.intersectObjects(scene.children, true);
     const rotationSpeed = 2;
     if (intersects.length > 0) {
-
       // const firstIntersection = intersects[0];
       // console.log("firstIntersection:", firstIntersection);
       // console.log("Intersection point:", firstIntersection.point);
@@ -81,7 +81,7 @@ export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
     camera.getWorldDirection(direction);
 
     const previousPosition = camera.position.clone();
-   
+
     const right = new THREE.Vector3();
     right.crossVectors(camera.up, direction).normalize();
 

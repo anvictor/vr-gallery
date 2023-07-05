@@ -193,13 +193,16 @@ const pointIsOutsideWalls = (point, polygons) => {
   for (let polygon of polygons) {
     let inside = false;
     for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
-      let xi = polygon[i].x,
+      const xi = polygon[i].x,
         zi = polygon[i].z;
-      let xj = polygon[j].x,
+      const xj = polygon[j].x,
         zj = polygon[j].z;
 
-      let intersect =
-        zi > point.z !== zj > point.z &&
+      const isZiMoreThanPointZ = zi > point.z;
+      const isZJMoreThanPointZ = zj > point.z;
+      const isZiNotEqualZj = isZiMoreThanPointZ !== isZJMoreThanPointZ;
+      const intersect =
+        isZiNotEqualZj &&
         point.x < ((xj - xi) * (point.z - zi)) / (zj - zi) + xi;
       if (intersect) inside = !inside;
     }
