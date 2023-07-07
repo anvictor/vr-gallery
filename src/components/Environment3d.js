@@ -3,7 +3,7 @@ import { TextureLoader, BackSide } from "three";
 import { useLoader } from "@react-three/fiber";
 
 const Environment3d = () => {
-  const texture = useLoader(TextureLoader, "/room/Barcelona3d.jpg");
+  const texture = useLoader(TextureLoader, "/room/London3d.jpg");
 
   return (
     <mesh rotation={[0, -0.2, 0]}>
