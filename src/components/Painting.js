@@ -6,8 +6,8 @@ import Label from "./Label";
 const Painting = ({ data, getFlyData }) => {
   const { position, imageUrl, width, height, rotation, name, author } = data;
   const texture = useTexture(imageUrl);
-  const backTexture = useTexture("/vr_gallery/paintings/CanvasBackSide.jpg");
-  const shadowTexture = useTexture("/vr_gallery/paintings/SquareShadowBlack.png");
+  const backTexture = useTexture("/paintings/CanvasBackSide.jpg");
+  const shadowTexture = useTexture("/paintings/SquareShadowBlack.png");
   const brightness = 80;
   const pos3d = new THREE.Vector3(1, 0, 0);
   const handleClick = () => {
