@@ -7,7 +7,7 @@ const Environment3d = () => {
 
   return (
     <mesh rotation={[0, -0.2, 0]}>
-      <sphereBufferGeometry
+      <sphereGeometry
         args={[2500, 60, 40]}
         attach="geometry"
         

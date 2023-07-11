@@ -35,7 +35,7 @@ export default function useControls(domElement) {
     const handleWheel = (event) => {
       setkeyDown(false);
       setTimeout(() => {
-        handleKeyUp ({code:`${event.deltaY < 0 ? "KeyW" : "KeyS"}`});
+        handleKeyUp({ code: `${event.deltaY < 0 ? "KeyW" : "KeyS"}` });
       }, 200);
       return setMoveState((s) => ({
         ...s,
@@ -61,12 +61,22 @@ export default function useControls(domElement) {
       const touch = event.touches[0];
       const movementX = touch.clientX - lastTouch.x;
       const movementY = touch.clientY - lastTouch.y;
-      const dx = -movementX * 0.002;
-      const dy = -movementY * 0.002;
+      let dx = -movementX * 0.001;
+      let dy = -movementY * 0.001;
+      if (Math.abs(movementX) > Math.abs(movementY)) {
+        dx = -movementX * 0.001;
+        dy = 0;
+      } else {
+        dx = 0;
+        dy = -movementY * 0.001;
+      }
       setMousePos({ x: dx, y: dy });
       setLastTouch({ x: touch.clientX, y: touch.clientY });
     };
-
+    const handleTouchEnd = () => {
+      setMouseDown(false);
+      // setMousePos({ x: 0, y: 0 });
+    };
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("keyup", handleKeyUp);
     domElement.addEventListener("mousedown", handleMouseDown);
@@ -74,7 +84,7 @@ export default function useControls(domElement) {
     document.addEventListener("mousemove", handleMouseMove);
 
     domElement.addEventListener("touchstart", handleMouseDown);
-    document.addEventListener("touchend", handleMouseUp);
+    document.addEventListener("touchend", handleTouchEnd);
     document.addEventListener("touchmove", handleTouchMove);
 
     document.addEventListener("wheel", handleWheel);
@@ -87,7 +97,7 @@ export default function useControls(domElement) {
       document.removeEventListener("mousemove", handleMouseMove);
 
       domElement.removeEventListener("touchstart", handleMouseDown);
-      document.removeEventListener("touchend", handleMouseUp);
+      document.removeEventListener("touchend", handleTouchEnd);
       document.removeEventListener("touchmove", handleTouchMove);
 
       document.removeEventListener("wheel", handleWheel);

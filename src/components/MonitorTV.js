@@ -27,7 +27,7 @@ const MonitorTV = () => {
 
     return (
       <mesh onClick={handleClick} position={[0, -20, 3]}>
-        <planeBufferGeometry attach="geometry" args={[15, 15]} />
+        <planeGeometry attach="geometry" args={[15, 15]} />
         <meshBasicMaterial attach="material" map={texture} transparent={true} />
       </mesh>
     );
@@ -67,9 +67,7 @@ const MonitorTV = () => {
       onPointerLeave={handleOut}
     >
       <mesh material={material} position={[0, 0, 2]} onClick={handleClick}>
-        {" "}
-        on
-        <planeBufferGeometry attach="geometry" args={[45, 70]} />
+        <planeGeometry attach="geometry" args={[45, 70]} />
       </mesh>
       {!playVideo && (
         <PlayButton setPlayVideo={setPlayVideo} handleClick={handleClick} />
