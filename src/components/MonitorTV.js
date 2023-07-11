@@ -11,7 +11,7 @@ import Label from "./Label";
 
 const MonitorTV = () => {
   const video = document.createElement("video");
-  video.src = "/paintings/SculptureHead.mp4"; // Put your video url here
+  video.src = "/vr_gallery/paintings/SculptureHead.mp4"; // Put your video url here
   const [playVideo, setPlayVideo] = useState(false);
 
   const handleClick = () => {
@@ -23,7 +23,7 @@ const MonitorTV = () => {
   };
 
   const PlayButton = ({ handleClick }) => {
-    const texture = useLoader(TextureLoader, "/util_Imgs/PlayBtn.png");
+    const texture = useLoader(TextureLoader, "/vr_gallery/util_Imgs/PlayBtn.png");
 
     return (
       <mesh onClick={handleClick} position={[0, -20, 3]}>

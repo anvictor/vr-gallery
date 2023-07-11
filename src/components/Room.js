@@ -18,7 +18,7 @@ const Room = ({ getClickPointXYZ,
   } = useThree();
   const Textures = getTextures(useLoader, TextureLoader);
   const [startDelta, setstartDelta] = useState(null);
-  const room = useLoader(OBJLoader, "/room/room.obj");
+  const room = useLoader(OBJLoader, "/vr_gallery/room/room.obj");
   room.position.x = 85;
   room.position.y = 0;
   room.position.z = -59;
@@ -77,6 +77,7 @@ const Room = ({ getClickPointXYZ,
     }
   };
   const handlePointerMove = (event) => {
+    
     const normalizedPoint = getNormalizedPoint(event, domElement);
     raycaster.setFromCamera(normalizedPoint, camera);
     const intersects = raycaster.intersectObjects(
