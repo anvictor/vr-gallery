@@ -63,19 +63,14 @@ export default function useControls(domElement) {
       const movementY = touch.clientY - lastTouch.y;
       let dx = -movementX * 0.001;
       let dy = -movementY * 0.001;
-      if (Math.abs(movementX) > Math.abs(movementY)) {
-        dx = -movementX * 0.001;
-        dy = 0;
-      } else {
-        dx = 0;
-        dy = -movementY * 0.001;
-      }
+      dx = -movementX * 0.001;
+      dy = -movementY * 0.001;
       setMousePos({ x: dx, y: dy });
       setLastTouch({ x: touch.clientX, y: touch.clientY });
     };
     const handleTouchEnd = () => {
       setMouseDown(false);
-      // setMousePos({ x: 0, y: 0 });
+      setMousePos({ x: 0, y: 0 });
     };
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("keyup", handleKeyUp);

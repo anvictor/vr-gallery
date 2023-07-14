@@ -20,3 +20,10 @@ html,
   padding: 0;
   overflow: hidden;
 }
+
+.debugging{
+  position: absolute;
+  z-index: 1000;
+  background-color: white;
+  padding: 5px;
+}

@@ -5,8 +5,14 @@ import useControls from "../controls/controls";
 import { getPointCloserToEnd, getWay, pointIsOutsideWalls } from "../utils";
 import { polygons } from "../controls/roomBorders";
 
-export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
-//  console.log(goTo);
+export default function FirstPersonCamera({
+  goTo,
+  getIsKeyDown,
+  debugMouseDown,
+  debugMousePosX,
+  debugMousePosY
+}) {
+  //  console.log(goTo);
   const raycaster = new THREE.Raycaster();
   const mouse = new THREE.Vector2();
   const [way, setWay] = useState([]);
@@ -21,7 +27,9 @@ export default function FirstPersonCamera({ goTo, getIsKeyDown }) {
   } = useThree();
   const cameraRef = useRef();
   const [moveState, mouseDown, mousePos, keyDown] = useControls(domElement);
-
+  debugMouseDown(mouseDown);// for gebugging
+  debugMousePosX(mousePos.x);// for gebugging
+  debugMousePosY(mousePos.y);// for gebugging
   camera.position.y = 180;
   camera.far = 5000;
   getIsKeyDown(keyDown);
