@@ -30,7 +30,7 @@ const App = () => {
   }, [isKeyDown]);
 
   useEffect(() => {
-    console.log(clickPoint);
+    // console.log(clickPoint);
   }, [clickPoint]);
 
   return (
