@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import useControls from "../controls/controls";
-import { getPointCloserToEnd, getWay, isPointOutsideWalls } from "../utils";
+import { getWay, isPointOutsideWalls } from "../utils";
 import { polygons } from "../controls/roomBorders";
 
 const FirstPersonCamera = ({

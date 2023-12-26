@@ -152,30 +152,30 @@ const getDiagonal = (point1, point2) => {
   return Math.sqrt(dX2 + dZ2);
 };
 
-const getPointCloserToEnd = (startPoint, endPoint, distanceCloser) => {
-  // Calculate the vector from start to end
-  let vector = {
-    x: endPoint.x - startPoint.x,
-    z: endPoint.z - startPoint.z,
-  };
+// const getPointCloserToEnd = (startPoint, endPoint, distanceCloser) => {
+//   // Calculate the vector from start to end
+//   let vector = {
+//     x: endPoint.x - startPoint.x,
+//     z: endPoint.z - startPoint.z,
+//   };
 
-  // Calculate the length of the vector
-  let length = Math.sqrt(vector.x ** 2 + vector.z ** 2);
+//   // Calculate the length of the vector
+//   let length = Math.sqrt(vector.x ** 2 + vector.z ** 2);
 
-  // Normalize the vector
-  let normalizedVector = {
-    x: vector.x / length,
-    z: vector.z / length,
-  };
+//   // Normalize the vector
+//   let normalizedVector = {
+//     x: vector.x / length,
+//     z: vector.z / length,
+//   };
 
-  // Calculate the new point
-  let newPoint = {
-    x: startPoint.x + normalizedVector.x * distanceCloser,
-    z: startPoint.z + normalizedVector.z * distanceCloser,
-  };
+//   // Calculate the new point
+//   let newPoint = {
+//     x: startPoint.x + normalizedVector.x * distanceCloser,
+//     z: startPoint.z + normalizedVector.z * distanceCloser,
+//   };
 
-  return newPoint;
-};
+//   return newPoint;
+// };
 
 const getWay = (startPosition, finishPosition, steps) => {
   const dx = (finishPosition.x - startPosition.x) / steps;
@@ -190,31 +190,45 @@ const getWay = (startPosition, finishPosition, steps) => {
 };
 
 const isPointOutsideWalls = (point, polygons) => {
-  for (let polygon of polygons) {
-    let inside = false;
-    for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
-      const xi = polygon[i].x,
-        zi = polygon[i].z;
-      const xj = polygon[j].x,
-        zj = polygon[j].z;
+  for (const polygon of polygons) {
+    let windingNumber = 0;
 
-      const isZiMoreThanPointZ = zi > point.z;
-      const isZJMoreThanPointZ = zj > point.z;
-      const isZiNotEqualZj = isZiMoreThanPointZ !== isZJMoreThanPointZ;
-      const intersect =
-        isZiNotEqualZj &&
-        point.x < ((xj - xi) * (point.z - zi)) / (zj - zi) + xi;
-      if (intersect) inside = !inside;
+    for (const vertex of polygon) {
+      const dx = vertex.x - point.x;
+      const dz = vertex.z - point.z;
+
+      if (dz === 0 && dx !== 0) {
+        if (dx > 0) {
+          if (point.x < vertex.x) {
+            return false;
+          }
+        } else {
+          if (point.x > vertex.x) {
+            return false;
+          }
+        }
+      } else {
+        const t = -dz / dx;
+        const xi = point.x + t * dx;
+
+        if (dx > 0 && xi > point.x && xi < vertex.x) {
+          windingNumber++;
+        } else if (dx < 0 && xi < point.x && xi > vertex.x) {
+          windingNumber--;
+        }
+      }
     }
-    if (inside) return false; // point is inside one of the polygons
+
+    return windingNumber !== 0;
   }
-  return true; // point is outside all polygons
+
+  return true;
 };
 
 export {
   Textures,
   getDiagonal,
-  getPointCloserToEnd,
+  // getPointCloserToEnd,
   getWay,
   isPointOutsideWalls,
 };
