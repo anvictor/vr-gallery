@@ -24,6 +24,11 @@ const App = () => {
   const [mouseDown, setMouseDown] = useState(null);
   const [mousePosX, setMousePosX] = useState(null);
   const [mousePosY, setMousePosY] = useState(null);
+  
+  const handleCameraReachedPoint = ()=> {
+    setClickPoint(null);
+  };
+ 
 
   useEffect(() => {
     if (isKeyDown) setClickPoint(null);
@@ -49,7 +54,8 @@ const App = () => {
           getPointerNormal={null}
         />
         <FirstPersonCamera
-          goTo={clickPoint}
+          cameraReachedPoint = {handleCameraReachedPoint}
+          goToClickOnFloor={clickPoint}
           getIsKeyDown={setisKeyDown}
         />
         {Paintings.map((painting) => (

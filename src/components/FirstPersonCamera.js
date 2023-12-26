@@ -2,11 +2,14 @@ import { useRef, useEffect, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import useControls from "../controls/controls";
-import { getPointCloserToEnd, getWay, pointIsOutsideWalls } from "../utils";
+import { getPointCloserToEnd, getWay, isPointOutsideWalls } from "../utils";
 import { polygons } from "../controls/roomBorders";
 
-const FirstPersonCamera = ({ goTo, getIsKeyDown }) => {
-  //  console.log(goTo);
+const FirstPersonCamera = ({
+  cameraReachedPoint,
+  goToClickOnFloor,
+  getIsKeyDown,
+}) => {
   const raycaster = new THREE.Raycaster();
   const mouse = new THREE.Vector2();
   const [way, setWay] = useState([]);
@@ -52,15 +55,17 @@ const FirstPersonCamera = ({ goTo, getIsKeyDown }) => {
       );
     }
 
-    if (goTo && (Math.floor(goTo.x) !== Math.floor(camera.position.x) && Math.floor(goTo.z) !== Math.floor(camera.position.z))) {
-      const startPosition = camera.position;
-      const finishPosition = getPointCloserToEnd(startPosition, goTo, 100);
-      console.log("goto", goTo, startPosition, finishPosition);
-
-      // Only calculate the way once per goTo request
+    if (goToClickOnFloor) {
+      if (
+        Math.floor(goToClickOnFloor.x) === Math.floor(camera.position.x) &&
+        Math.floor(goToClickOnFloor.z) === Math.floor(camera.position.z)
+      ) {
+        cameraReachedPoint();
+      }
+      // Only calculate the way once per goToClickOnFloor request
       if (way.length === 0 && currentStep === 0) {
         // const calculatedWay = getWay(startPosition, finishPosition, 30);
-        const calculatedWay = getWay(startPosition, goTo, 30);
+        const calculatedWay = getWay(camera.position, goToClickOnFloor, 30);
         setWay(calculatedWay);
       }
 
@@ -96,7 +101,7 @@ const FirstPersonCamera = ({ goTo, getIsKeyDown }) => {
     }
     if (moveState.right) camera.position.sub(right.multiplyScalar(moveSpeed));
     if (moveState.left) camera.position.add(right.multiplyScalar(moveSpeed));
-    setOutside(pointIsOutsideWalls(camera.position, polygons));
+    setOutside(isPointOutsideWalls(camera.position, polygons));
     if (!outside) {
       // If we are inside a polygon, reset to the previous position
       camera.position.copy(previousPosition);
