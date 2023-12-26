@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const keys = {
   KeyW: "forward",
@@ -21,7 +21,7 @@ const useControls = (domElement) => {
   const [mouseDown, setMouseDown] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [keyDown, setkeyDown] = useState(false);
-  const [lastTouch, setLastTouch] = useState({ x: 0, y: 0 });
+  const lastTouch = useRef({ x: 0, y: 0 });
 
   const handleKeyDown = (event) => {
     setkeyDown(true);
@@ -41,7 +41,21 @@ const useControls = (domElement) => {
       [keys[`${event.deltaY < 0 ? "KeyW" : "KeyS"}`]]: true,
     }));
   };
-  const handleMouseDown = () => {
+  const handleMouseDown = (event) => {
+    let startPosition = { x: 0, y: 0 };
+    const touches = event.touches;
+    if (touches) {
+      startPosition = {
+        x: event.touches[0].clientX,
+        y: event.touches[0].clientY,
+      };
+    } else {
+      startPosition = {
+        x: event.clientX,
+        y: event.clientY,
+      };
+    }
+    lastTouch.current = startPosition;
     setMouseDown(true);
   };
   const handleMouseUp = () => {
@@ -64,7 +78,7 @@ const useControls = (domElement) => {
     const dy = -movementY * 0.0002;
 
     setMousePos({ x: dx, y: dy });
-    setLastTouch({ x: touch.clientX, y: touch.clientY });
+    lastTouch.current = { x: touch.clientX, y: touch.clientY };
   };
   const handleTouchEnd = () => {
     setMouseDown(false);
@@ -98,7 +112,7 @@ const useControls = (domElement) => {
     };
     // eslint-disable-next-line
   }, [mouseDown, lastTouch]);
-  console.log(mouseDown, mousePos.x);
+  // console.log(mouseDown, mousePos.x);
   return [moveState, mouseDown, mousePos, keyDown];
 };
 export default useControls;

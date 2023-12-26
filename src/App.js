@@ -35,12 +35,6 @@ const App = () => {
 
   return (
     <>
-      <p className="debugging">
-        {`mousedown:${mouseDown}, mousePos x:${Math.round(
-          mousePosX * 1000
-        )}, y:${Math.round(mousePosY * 1000)}
-`}
-      </p>
       <Canvas className="canvasScene">
         <Environment3d />
         <ambientLight intensity={0.5} />
@@ -57,9 +51,6 @@ const App = () => {
         <FirstPersonCamera
           goTo={clickPoint}
           getIsKeyDown={setisKeyDown}
-          debugMouseDown={setMouseDown}
-          debugMousePosX={setMousePosX}
-          debugMousePosY={setMousePosY}
         />
         {Paintings.map((painting) => (
           <Painting

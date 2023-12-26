@@ -5,13 +5,7 @@ import useControls from "../controls/controls";
 import { getPointCloserToEnd, getWay, pointIsOutsideWalls } from "../utils";
 import { polygons } from "../controls/roomBorders";
 
-const FirstPersonCamera = ({
-  goTo,
-  getIsKeyDown,
-  debugMouseDown,
-  debugMousePosX,
-  debugMousePosY,
-}) => {
+const FirstPersonCamera = ({ goTo, getIsKeyDown }) => {
   //  console.log(goTo);
   const raycaster = new THREE.Raycaster();
   const mouse = new THREE.Vector2();
@@ -27,9 +21,6 @@ const FirstPersonCamera = ({
   } = useThree();
   const cameraRef = useRef();
   const [moveState, mouseDown, mousePos, keyDown] = useControls(domElement);
-  debugMouseDown(mouseDown); // for gebugging
-  debugMousePosX(mousePos.x); // for gebugging
-  debugMousePosY(mousePos.y); // for gebugging
   camera.position.y = 180;
   camera.far = 5000;
   getIsKeyDown(keyDown);
@@ -61,13 +52,15 @@ const FirstPersonCamera = ({
       );
     }
 
-    if (goTo) {
+    if (goTo && (Math.floor(goTo.x) !== Math.floor(camera.position.x) && Math.floor(goTo.z) !== Math.floor(camera.position.z))) {
       const startPosition = camera.position;
-      const finishPosition = getPointCloserToEnd(goTo, startPosition, 10);
+      const finishPosition = getPointCloserToEnd(startPosition, goTo, 100);
+      console.log("goto", goTo, startPosition, finishPosition);
 
       // Only calculate the way once per goTo request
       if (way.length === 0 && currentStep === 0) {
-        const calculatedWay = getWay(startPosition, finishPosition, 30);
+        // const calculatedWay = getWay(startPosition, finishPosition, 30);
+        const calculatedWay = getWay(startPosition, goTo, 30);
         setWay(calculatedWay);
       }
 
