@@ -1,0 +1,272 @@
+[
+  {
+    "id": "paintId:00",
+    "width": 1000,
+    "height": 1000,
+    "author": "Svitlana Andreychenko",
+    "name": "hi",
+    "imageUrl": "/vr_gallery/paintings/Hi.jpg",
+    "position": [278, 180, -429],
+    "rotation": [0, 0, 0]
+  },
+  {
+    "id": "paintId:01",
+    "width": 500,
+    "height": 400,
+    "author": "Svitlana Andreychenko",
+    "name": "sea",
+    "imageUrl": "/vr_gallery/paintings/Sea.jpg",
+    "position": [-115, 180, -336],
+    "rotation": [0, 1.5708, 0]
+  },
+  {
+    "id": "paintId:02",
+    "width": 595,
+    "height": 420,
+    "author": "Svitlana Andreychenko",
+    "name": "dream",
+    "imageUrl": "/vr_gallery/paintings/Dream.jpg",
+    "position": [-115, 180, 200],
+    "rotation": [0, 1.5708, 0]
+  },
+  {
+    "id": "paintId:03",
+    "width": 700,
+    "height": 500,
+    "author": "Svitlana Andreychenko",
+    "name": "cheese",
+    "imageUrl": "/vr_gallery/paintings/Cheese.jpg",
+    "position": [58, 180, 321],
+    "rotation": [0, 3.14159, 0]
+  },
+  {
+    "id": "paintId:04",
+    "width": 280,
+    "height": 400,
+    "author": "Svitlana Andreychenko",
+    "name": "afro",
+    "imageUrl": "/vr_gallery/paintings/Afro.jpg",
+    "position": [278, 180, 321],
+    "rotation": [0, 3.14159, 0]
+  },
+  {
+    "id": "paintId:05",
+    "width": 400,
+    "height": 280,
+    "author": "Svitlana Andreychenko",
+    "name": "lamas",
+    "imageUrl": "/vr_gallery/paintings/Llamas.jpg",
+    "position": [565, 180, 200],
+    "rotation": [0, -1.5708, 0]
+  },
+  {
+    "id": "paintId:06",
+    "width": 400,
+    "height": 280,
+    "author": "Svitlana Andreychenko",
+    "name": "boat",
+    "imageUrl": "/vr_gallery/paintings/Boat.jpg",
+    "position": [565, 180, 113],
+    "rotation": [0, -1.5708, 0]
+  },
+  {
+    "id": "paintId:07",
+    "width": 420,
+    "height": 270,
+    "author": "Viktor Andreichenko",
+    "name": "venice",
+    "imageUrl": "/vr_gallery/paintings/Venice.jpg",
+    "position": [-125, 180, -373],
+    "rotation": [0, -1.5708, 0]
+  },
+  {
+    "id": "paintId:08",
+    "width": 300,
+    "height": 400,
+    "author": "Viktor Andreichenko",
+    "name": "kabu",
+    "imageUrl": "/vr_gallery/paintings/Kabu.jpg",
+    "position": [285, 180, -44],
+    "rotation": [0, -1.5708, 0]
+  },
+  {
+    "id": "paintId:09",
+    "width": 600,
+    "height": 400,
+    "author": "Viktor Andreichenko",
+    "name": "album",
+    "imageUrl": "/vr_gallery/paintings/Album.jpg",
+    "position": [-125, 180, 66],
+    "rotation": [0, -1.5708, 0]
+  },
+  {
+    "id": "paintId:10",
+    "width": 600,
+    "height": 400,
+    "author": "Viktor Andreichenko",
+    "name": "groom",
+    "imageUrl": "/vr_gallery/paintings/Groom.jpg",
+    "position": [-300, 180, 321],
+    "rotation": [0, 3.14159, 0]
+  },
+  {
+    "id": "paintId:11",
+    "width": 400,
+    "height": 280,
+    "author": "Viktor Andreichenko",
+    "name": "artists",
+    "imageUrl": "/vr_gallery/paintings/Artists.jpg",
+    "position": [-395, 180, 52],
+    "rotation": [0, 1.5708, 0]
+  },
+  {
+    "id": "paintId:12",
+    "width": 600,
+    "height": 500,
+    "author": "Viktor Andreichenko",
+    "name": "door",
+    "imageUrl": "/vr_gallery/paintings/Door.jpg",
+    "position": [565, 180, -50],
+    "rotation": [0, -1.5708, 0]
+  },
+  {
+    "id": "paintId:13",
+    "width": 500,
+    "height": 600,
+    "author": "Viktor Andreichenko",
+    "name": "portrait",
+    "imageUrl": "/vr_gallery/paintings/Portrait.jpg",
+    "position": [467, 180, 31],
+    "rotation": [0, 3.14159, 0]
+  },
+  {
+    "id": "paintId:14",
+    "width": 390,
+    "height": 290,
+    "author": "Viktor Andreichenko",
+    "name": "china",
+    "imageUrl": "/vr_gallery/paintings/China.jpg",
+    "position": [295, 180, -142],
+    "rotation": [0, 1.5708, 0]
+  },
+  {
+    "id": "paintId:15",
+    "width": 600,
+    "height": 500,
+    "author": "Viktor Andreichenko",
+    "name": "Bulls",
+    "imageUrl": "/vr_gallery/paintings/Tures.jpg",
+    "position": [285, 180, -147],
+    "rotation": [0, -1.5708, 0]
+  },
+  {
+    "id": "paintId:16",
+    "width": 600,
+    "height": 500,
+    "author": "Viktor Andreichenko",
+    "name": "Back Side Of Scream",
+    "imageUrl": "/vr_gallery/paintings/BackSideOfScream.jpg",
+    "position": [-125, 180, 188],
+    "rotation": [0, -1.5708, 0]
+  },
+  {
+    "id": "paintId:17",
+    "width": 270,
+    "height": 400,
+    "author": "Viktor Andreichenko",
+    "name": "Girl",
+    "imageUrl": "/vr_gallery/paintings/BWDrawindGirl.jpg",
+    "position": [-395, 180, -77],
+    "rotation": [0, 1.5708, 0]
+  },
+  {
+    "id": "paintId:18",
+    "width": 230,
+    "height": 400,
+    "author": "Viktor Andreichenko",
+    "name": "Head",
+    "imageUrl": "/vr_gallery/paintings/BWDrowindHead.jpg",
+    "position": [-125, 180, -310],
+    "rotation": [0, -1.5708, 0]
+  },
+  {
+    "id": "paintId:19",
+    "width": 297,
+    "height": 420,
+    "author": "Viktor Andreichenko",
+    "name": "Credo",
+    "imageUrl": "/vr_gallery/paintings/ChurchText.jpg",
+    "position": [565, 180, -144],
+    "rotation": [0, -1.5708, 0]
+  },
+  {
+    "id": "paintId:20",
+    "width": 420,
+    "height": 297,
+    "author": "Valentin Danovski",
+    "name": "Pieta",
+    "imageUrl": "/vr_gallery/paintings/Danovski.jpg",
+    "position": [-395, 180, -170],
+    "rotation": [0, 1.5708, 0]
+  },
+  {
+    "id": "paintId:21",
+    "width": 500,
+    "height": 500,
+    "author": "Viktor Andreichenko",
+    "name": "Dream About Him",
+    "imageUrl": "/vr_gallery/paintings/DreamAbout.jpg",
+    "position": [295, 180, -48],
+    "rotation": [0, 1.5708, 0]
+  },
+  {
+    "id": "paintId:22",
+    "width": 500,
+    "height": 600,
+    "author": "Svitlana Andreychenko",
+    "name": "Flower",
+    "imageUrl": "/vr_gallery/paintings/Flower.jpg",
+    "position": [466, 180, 41],
+    "rotation": [0, 0, 0]
+  },
+  {
+    "id": "paintId:23",
+    "width": 350,
+    "height": 250,
+    "author": "Viktor Andreichenko",
+    "name": "Ives",
+    "imageUrl": "/vr_gallery/paintings/Ives.jpg",
+    "position": [-395, 180, 164],
+    "rotation": [0, 1.5708, 0]
+  },
+  {
+    "id": "paintId:24",
+    "width": 500,
+    "height": 600,
+    "author": "Viktor Andreichenko",
+    "name": "Money Changer And His Wife",
+    "imageUrl": "/vr_gallery/paintings/MoneyChangerAndHisWife.jpg",
+    "position": [370, 180, 31],
+    "rotation": [0, 3.14159, 0]
+  },
+  {
+    "id": "paintId:25",
+    "width": 297,
+    "height": 210,
+    "author": "Viktor Andreichenko",
+    "name": "Solomia's Dance",
+    "imageUrl": "/vr_gallery/paintings/SolomiasDansing.jpg",
+    "position": [-204, 180, 321],
+    "rotation": [0, 3.14159, 0]
+  },
+  {
+    "id": "paintId:26",
+    "width": 300,
+    "height": 300,
+    "author": "Svitlana Andreychenko",
+    "name": "Two Stars",
+    "imageUrl": "/vr_gallery/paintings/TwoStars.jpg",
+    "position": [374, 180, 41],
+    "rotation": [0, 0, 0]
+  }
+]
