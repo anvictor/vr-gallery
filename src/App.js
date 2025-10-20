@@ -13,6 +13,7 @@ import Environment3d from "./components/Environment3d";
  */
 const Inspect = true;
 const SceneInspector = () => {
+  // eslint-disable-next-line no-unused-vars
   const { scene } = useThree();
   // console.log(scene);
   return null;
@@ -68,7 +69,7 @@ const App = () => {
   );
 };
 const root = document.getElementById("root");
-if (!root) {
+if (root) {
   createRoot(root).render(<App />);
 }
 

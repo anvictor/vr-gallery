@@ -137,12 +137,12 @@ const useControls = (domElement) => {
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("keyup", handleKeyUp);
     domElement.addEventListener("mousedown", handleMouseDown);
-    document.addEventListener("mouseup", handleMouseUp);
-    document.addEventListener("mousemove", handleMouseMove);
+    domElement.addEventListener("mouseup", handleMouseUp);
+    domElement.addEventListener("mousemove", handleMouseMove);
 
     domElement.addEventListener("touchstart", handleMouseDown);
-    document.addEventListener("touchend", handleTouchEnd);
-    document.addEventListener("touchmove", handleTouchMove);
+    domElement.addEventListener("touchend", handleTouchEnd);
+    domElement.addEventListener("touchmove", handleTouchMove);
 
     document.addEventListener("wheel", handleWheel);
 
@@ -150,12 +150,12 @@ const useControls = (domElement) => {
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("keyup", handleKeyUp);
       domElement.removeEventListener("mousedown", handleMouseDown);
-      document.removeEventListener("mouseup", handleMouseUp);
-      document.removeEventListener("mousemove", handleMouseMove);
+      domElement.removeEventListener("mouseup", handleMouseUp);
+      domElement.removeEventListener("mousemove", handleMouseMove);
 
       domElement.removeEventListener("touchstart", handleMouseDown);
-      document.removeEventListener("touchend", handleTouchEnd);
-      document.removeEventListener("touchmove", handleTouchMove);
+      domElement.removeEventListener("touchend", handleTouchEnd);
+      domElement.removeEventListener("touchmove", handleTouchMove);
 
       document.removeEventListener("wheel", handleWheel);
     };
