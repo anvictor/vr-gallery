@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 const SENSITIVITY = 0.002;
-
+const mouse = { x: 0, y: 0 };
 // Movement keys (WASD + arrows)
 const keys = {
   KeyW: "forward",
@@ -102,6 +102,11 @@ const useControls = (domElement) => {
         y: event.clientY,
       };
     }
+
+    // ✅ оновлюємо координати миші для raycaster
+    mouse.x = (startPosition.x / window.innerWidth) * 2 - 1;
+    mouse.y = -(startPosition.y / window.innerHeight) * 2 + 1;
+
     lastTouch.current = startPosition;
     setMouseDown(true);
   };
@@ -162,6 +167,15 @@ const useControls = (domElement) => {
     // eslint-disable-next-line
   }, [mouseDown, lastTouch]);
   // console.log(mouseDown, mousePos.x);
-  return [moveState, mouseDown, mousePos, keyDown, rotateState, resetMousePos];
+  return [
+    moveState,
+    mouseDown,
+    mousePos,
+    keyDown,
+    rotateState,
+    resetMousePos,
+    setMouseDown,
+    mouse,
+  ];
 };
 export default useControls;

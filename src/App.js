@@ -32,8 +32,12 @@ const App = () => {
   }, [isKeyDown]);
 
   useEffect(() => {
-    // console.log(clickPoint);
+    console.log("clickPoint", clickPoint);
   }, [clickPoint]);
+
+  const getFlyData = (pos3d) => {
+    setClickPoint(pos3d); // ✅ запускає покроковий рух
+  };
 
   return (
     <>
@@ -54,6 +58,7 @@ const App = () => {
           cameraReachedPoint={handleCameraReachedPoint}
           goToClickOnFloor={clickPoint}
           getIsKeyDown={setisKeyDown}
+          getFlyData={getFlyData}
         />
         {Paintings.map((painting) => (
           <Painting

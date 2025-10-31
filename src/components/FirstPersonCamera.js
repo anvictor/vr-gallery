@@ -10,9 +10,9 @@ const FirstPersonCamera = ({
   cameraReachedPoint,
   goToClickOnFloor,
   getIsKeyDown,
+  getFlyData,
 }) => {
   const raycaster = new THREE.Raycaster();
-  const mouse = new THREE.Vector2();
   const [way, setWay] = useState([]);
   const [outside, setOutside] = useState(true);
 
@@ -24,30 +24,60 @@ const FirstPersonCamera = ({
     gl: { domElement },
   } = useThree();
   const cameraRef = useRef();
-  const [moveState, mouseDown, mousePos, keyDown, rotateState, resetMousePos] =
-    useControls(domElement);
+  const [
+    moveState,
+    mouseDown,
+    mousePos,
+    keyDown,
+    rotateState,
+    resetMousePos,
+    setMouseDown,
+    mouse, // ✅ додаємо
+  ] = useControls(domElement);
+
   camera.position.y = 180;
   camera.far = 5000;
   getIsKeyDown(keyDown);
 
   useEffect(() => {
     cameraRef.current = camera;
-    camera.rotation.order = "YXZ"; // ✅ встановлюємо правильний порядок
+    camera.rotation.order = "YXZ";
     return () => {
-      camera.rotation.order = "YXZ"; // залишаємо як було
+      camera.rotation.order = "YXZ";
     };
   }, [camera]);
 
   useFrame(() => {
     raycaster.setFromCamera(mouse, camera);
-    const intersects = raycaster.intersectObjects(scene.children, true);
-    const rotationSpeed = 2;
-    if (intersects.length > 0) {
-      // const firstIntersection = intersects[0];
-      // console.log("firstIntersection:", firstIntersection);
-      // console.log("Intersection point:", firstIntersection.point);
-      // console.log("Intersection normal:", firstIntersection.face.normal);
+    if (mouseDown) {
+      const intersects = raycaster.intersectObjects(scene.children, true);
+      if (intersects.length > 0) {
+        const firstHit = intersects[0];
+        const paintingData = firstHit.object.userData?.data;
+        console.log("firstHit", firstHit);
+        console.log("userData", firstHit.object.userData);
+        if (paintingData) {
+          const { position, height, rotation } = paintingData;
+          const distanceAbsolut = height * 0.0632 + 5.5;
+          const sign = rotation[1] === 0 ? 1 : rotation[1] === 1.5708 ? 1 : -1;
+          const pos3d = new THREE.Vector3();
+          pos3d.x =
+            rotation[1] === 1.5708 || rotation[1] === -1.5708
+              ? position[0] + sign * distanceAbsolut
+              : position[0];
+          pos3d.y = position[1];
+          pos3d.z =
+            rotation[1] === 0 || rotation[1] === 3.14159
+              ? position[2] + sign * distanceAbsolut
+              : position[2];
+          getFlyData(pos3d);
+          resetMousePos();
+          setMouseDown(false);
+        }
+      }
     }
+
+    const rotationSpeed = 2;
     const moveSpeed = 2;
     if (mouseDown) {
       camera.rotation.y -= rotationSpeed * mousePos.x;
