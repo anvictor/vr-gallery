@@ -22,10 +22,16 @@ const SceneInspector = () => {
 const App = () => {
   const [isKeyDown, setisKeyDown] = useState(false);
   const [clickPoint, setClickPoint] = useState(null);
-
   const handleCameraReachedPoint = () => {
     setClickPoint(null);
   };
+  useEffect(() => {
+    // Force R3F to compute size and render an initial frame
+    const raf = requestAnimationFrame(() => {
+      window.dispatchEvent(new Event("resize"));
+    });
+    return () => cancelAnimationFrame(raf);
+  }, []);
 
   useEffect(() => {
     if (isKeyDown) setClickPoint(null);
@@ -41,8 +47,10 @@ const App = () => {
 
   return (
     <>
-      <Canvas className="canvasScene">
-        <Environment3d />
+      <Canvas className="canvasScene" frameloop="always">
+        <React.Suspense fallback={null}>
+          <Environment3d />
+        </React.Suspense>
         <ambientLight intensity={0.5} />
         <directionalLight
           color="white"

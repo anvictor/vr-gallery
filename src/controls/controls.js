@@ -35,9 +35,11 @@ const useControls = (domElement) => {
   const resetMousePos = () => setMousePos({ x: 0, y: 0 });
 
   const [mouseDown, setMouseDown] = useState(false);
+  const mouseDownRef = useRef(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [keyDown, setKeyDown] = useState(false);
   const lastTouch = useRef({ x: 0, y: 0 });
+  const lastMouse = useRef({ x: 0, y: 0 });
 
   const handleKeyDown = (event) => {
     if (event.code === "ArrowDown") {
@@ -90,6 +92,8 @@ const useControls = (domElement) => {
   };
 
   const handleMouseDown = (event) => {
+    if (event && event.preventDefault) event.preventDefault();
+    if (event && event.stopPropagation) event.stopPropagation();
     let startPosition = { x: 0, y: 0 };
     if (event.touches && event.touches.length > 0) {
       startPosition = {
@@ -108,20 +112,25 @@ const useControls = (domElement) => {
     mouse.y = -(startPosition.y / window.innerHeight) * 2 + 1;
 
     lastTouch.current = startPosition;
+    lastMouse.current = startPosition;
     setMouseDown(true);
+    mouseDownRef.current = true;
   };
 
   const handleMouseUp = () => {
     setMouseDown(false);
+    mouseDownRef.current = false;
     setMousePos({ x: 0, y: 0 });
   };
   const handleMouseMove = (event) => {
-    if (mouseDown) {
-      const dx = -event.movementX * 0.002;
-      const dy = -event.movementY * 0.002;
-      // console.log(event.movementX, event.movementY);
-      setMousePos({ x: dx, y: dy });
-    }
+    if (!mouseDownRef.current) return;
+    const current = { x: event.clientX, y: event.clientY };
+    const movementX = current.x - lastMouse.current.x;
+    const movementY = current.y - lastMouse.current.y;
+    const dx = -movementX * SENSITIVITY;
+    const dy = -movementY * SENSITIVITY;
+    setMousePos({ x: dx, y: dy });
+    lastMouse.current = current;
   };
   const handleTouchMove = (event) => {
     if (event.touches.length !== 1) return;
@@ -136,18 +145,19 @@ const useControls = (domElement) => {
   };
   const handleTouchEnd = () => {
     setMouseDown(false);
+    mouseDownRef.current = false;
     // setMousePos({ x: 0, y: 0 });
   };
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("keyup", handleKeyUp);
     domElement.addEventListener("mousedown", handleMouseDown);
-    domElement.addEventListener("mouseup", handleMouseUp);
-    domElement.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
+    document.addEventListener("mousemove", handleMouseMove);
 
     domElement.addEventListener("touchstart", handleMouseDown);
-    domElement.addEventListener("touchend", handleTouchEnd);
-    domElement.addEventListener("touchmove", handleTouchMove);
+    document.addEventListener("touchend", handleTouchEnd);
+    document.addEventListener("touchmove", handleTouchMove, { passive: true });
 
     document.addEventListener("wheel", handleWheel);
 
@@ -155,17 +165,16 @@ const useControls = (domElement) => {
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("keyup", handleKeyUp);
       domElement.removeEventListener("mousedown", handleMouseDown);
-      domElement.removeEventListener("mouseup", handleMouseUp);
-      domElement.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener("mousemove", handleMouseMove);
 
       domElement.removeEventListener("touchstart", handleMouseDown);
-      domElement.removeEventListener("touchend", handleTouchEnd);
-      domElement.removeEventListener("touchmove", handleTouchMove);
+      document.removeEventListener("touchend", handleTouchEnd);
+      document.removeEventListener("touchmove", handleTouchMove);
 
       document.removeEventListener("wheel", handleWheel);
     };
-    // eslint-disable-next-line
-  }, [mouseDown, lastTouch]);
+  }, []);
   // console.log(mouseDown, mousePos.x);
   return [
     moveState,

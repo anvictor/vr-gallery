@@ -22,6 +22,7 @@ const FirstPersonCamera = ({
     camera,
     scene,
     gl: { domElement },
+    invalidate,
   } = useThree();
   const cameraRef = useRef();
   const [
@@ -42,10 +43,14 @@ const FirstPersonCamera = ({
   useEffect(() => {
     cameraRef.current = camera;
     camera.rotation.order = "YXZ";
+    // Ensure far plane applies immediately and render a frame
+    camera.far = 5000;
+    camera.updateProjectionMatrix();
+    invalidate();
     return () => {
       camera.rotation.order = "YXZ";
     };
-  }, [camera]);
+  }, [camera, invalidate]);
 
   useFrame(() => {
     raycaster.setFromCamera(mouse, camera);
@@ -54,6 +59,7 @@ const FirstPersonCamera = ({
       if (intersects.length > 0) {
         const firstHit = intersects[0];
         const paintingData = firstHit.object.userData?.data;
+        console.log("position", camera.position);
         console.log("firstHit", firstHit);
         console.log("userData", firstHit.object.userData);
         if (paintingData) {
@@ -79,14 +85,13 @@ const FirstPersonCamera = ({
 
     const rotationSpeed = 2;
     const moveSpeed = 2;
-    if (mouseDown) {
+    if (mouseDown && (mousePos.x !== 0 || mousePos.y !== 0)) {
       camera.rotation.y -= rotationSpeed * mousePos.x;
       camera.rotation.x -= rotationSpeed * mousePos.y;
       camera.rotation.x = Math.max(
         -Math.PI / 2,
         Math.min(Math.PI / 2, camera.rotation.x)
       );
-      resetMousePos(); // ✅ тепер доступно
     }
 
     if (goToClickOnFloor) {
