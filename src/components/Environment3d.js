@@ -51,6 +51,7 @@ const Environment3d = () => {
       rotation={[0, -0.2, 0]}
       frustumCulled={false}
       renderOrder={-10000}
+      userData={{ noRaycast: true }}
     >
       <sphereGeometry args={[2500, 60, 40]} attach="geometry" />
       <meshBasicMaterial

@@ -12,28 +12,28 @@ const FirstPersonCamera = ({
   getIsKeyDown,
   getFlyData,
 }) => {
-  const raycaster = new THREE.Raycaster();
-  const [way, setWay] = useState([]);
+  // const raycaster = new THREE.Raycaster(); // no longer used for paintings
+  const wayRef = useRef([]);
   const [outside, setOutside] = useState(true);
-
-  const [currentStep, setCurrentStep] = useState(0);
+  const currentStepRef = useRef(0);
 
   const {
     camera,
-    scene,
+    // scene,
     gl: { domElement },
     invalidate,
   } = useThree();
   const cameraRef = useRef();
+  const prevMouseDownRef = useRef(false);
+  // const clickRaycastFramesRef = useRef(0);
   const [
     moveState,
     mouseDown,
     mousePos,
     keyDown,
     rotateState,
-    resetMousePos,
-    setMouseDown,
-    mouse, // ✅ додаємо
+    // resetMousePos,
+    // mouse, // ✅ додаємо
   ] = useControls(domElement);
 
   camera.position.y = 180;
@@ -53,35 +53,8 @@ const FirstPersonCamera = ({
   }, [camera, invalidate]);
 
   useFrame(() => {
-    raycaster.setFromCamera(mouse, camera);
-    if (mouseDown) {
-      const intersects = raycaster.intersectObjects(scene.children, true);
-      if (intersects.length > 0) {
-        const firstHit = intersects[0];
-        const paintingData = firstHit.object.userData?.data;
-        console.log("position", camera.position);
-        console.log("firstHit", firstHit);
-        console.log("userData", firstHit.object.userData);
-        if (paintingData) {
-          const { position, height, rotation } = paintingData;
-          const distanceAbsolut = height * 0.0632 + 5.5;
-          const sign = rotation[1] === 0 ? 1 : rotation[1] === 1.5708 ? 1 : -1;
-          const pos3d = new THREE.Vector3();
-          pos3d.x =
-            rotation[1] === 1.5708 || rotation[1] === -1.5708
-              ? position[0] + sign * distanceAbsolut
-              : position[0];
-          pos3d.y = position[1];
-          pos3d.z =
-            rotation[1] === 0 || rotation[1] === 3.14159
-              ? position[2] + sign * distanceAbsolut
-              : position[2];
-          getFlyData(pos3d);
-          resetMousePos();
-          setMouseDown(false);
-        }
-      }
-    }
+    // Painting clicks are handled by Painting.onClick now; keep only rotation here
+    prevMouseDownRef.current = mouseDown;
 
     const rotationSpeed = 2;
     const moveSpeed = 2;
@@ -102,23 +75,25 @@ const FirstPersonCamera = ({
         cameraReachedPoint();
       }
       // Only calculate the way once per goToClickOnFloor request
-      if (way.length === 0 && currentStep === 0) {
-        // const calculatedWay = getWay(startPosition, finishPosition, 30);
+      if (wayRef.current.length === 0 && currentStepRef.current === 0) {
         const calculatedWay = getWay(camera.position, goToClickOnFloor, 30);
-        setWay(calculatedWay);
+        wayRef.current = calculatedWay;
       }
 
       // Move the camera along the way if there's more to go
-      if (way.length > currentStep) {
-        const [x, z] = way[currentStep];
+      if (wayRef.current.length > currentStepRef.current) {
+        const [x, z] = wayRef.current[currentStepRef.current];
         camera.position.x = x;
         camera.position.z = z;
-        setCurrentStep(currentStep + 1);
+        currentStepRef.current += 1;
       }
       // If we've finished the journey, reset the state
-      else if (way.length > 0 && currentStep >= way.length) {
-        setWay([]);
-        setCurrentStep(0);
+      else if (
+        wayRef.current.length > 0 &&
+        currentStepRef.current >= wayRef.current.length
+      ) {
+        wayRef.current = [];
+        currentStepRef.current = 0;
       }
     }
 
