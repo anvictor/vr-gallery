@@ -1,9 +1,18 @@
 const Textures = (useLoader, TextureLoader) => {
   return {
     Floor_5_FlMtl: {
-      colorMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/floor_lightMap.jpg"),
-      displacementMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/floor_map.jpg"),
-      normalMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/floor_normalMap.jpg"),
+      colorMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/floor_lightMap.jpg"
+      ),
+      displacementMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/floor_map.jpg"
+      ),
+      normalMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/floor_normalMap.jpg"
+      ),
       roughnessMap: useLoader(
         TextureLoader,
         "/vr_gallery/room/skin1/floor_roughnessMap.jpg"
@@ -11,9 +20,18 @@ const Textures = (useLoader, TextureLoader) => {
       aoMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/floor_aoMap.jpg"),
     },
     roof_out_2_Material: {
-      colorMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/roof_lightMap.jpg"),
-      displacementMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/roof_map.jpg"),
-      normalMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/roof_normalMap.jpg"),
+      colorMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/roof_lightMap.jpg"
+      ),
+      displacementMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/roof_map.jpg"
+      ),
+      normalMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/roof_normalMap.jpg"
+      ),
       roughnessMap: useLoader(
         TextureLoader,
         "/vr_gallery/room/skin1/roof_roughnessMap.jpg"
@@ -21,9 +39,18 @@ const Textures = (useLoader, TextureLoader) => {
       aoMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/roof_aoMap.jpg"),
     },
     roof_1_roofMtl: {
-      colorMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/roof_lightMap.jpg"),
-      displacementMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/roof_map.jpg"),
-      normalMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/roof_normalMap.jpg"),
+      colorMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/roof_lightMap.jpg"
+      ),
+      displacementMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/roof_map.jpg"
+      ),
+      normalMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/roof_normalMap.jpg"
+      ),
       roughnessMap: useLoader(
         TextureLoader,
         "/vr_gallery/room/skin1/roof_roughnessMap.jpg"
@@ -31,30 +58,84 @@ const Textures = (useLoader, TextureLoader) => {
       aoMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/roof_aoMap.jpg"),
     },
     Window1_W1_winMtl: {
-      colorMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/windows_lightMap.jpg"),
-      displacementMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/windows_map.jpg"),
-      normalMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/windows_normalMap.jpg"),
-      roughnessMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/windows_map.jpg"),
-      aoMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/windows_aoMap.jpg"),
+      colorMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/windows_lightMap.jpg"
+      ),
+      displacementMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/windows_map.jpg"
+      ),
+      normalMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/windows_normalMap.jpg"
+      ),
+      roughnessMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/windows_map.jpg"
+      ),
+      aoMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/windows_aoMap.jpg"
+      ),
     },
     Window2_W2_winMtl: {
-      colorMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/windows_lightMap.jpg"),
-      displacementMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/windows_map.jpg"),
-      normalMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/windows_normalMap.jpg"),
-      roughnessMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/windows_map.jpg"),
-      aoMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/windows_aoMap.jpg"),
+      colorMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/windows_lightMap.jpg"
+      ),
+      displacementMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/windows_map.jpg"
+      ),
+      normalMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/windows_normalMap.jpg"
+      ),
+      roughnessMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/windows_map.jpg"
+      ),
+      aoMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/windows_aoMap.jpg"
+      ),
     },
     Window3_W3_winMtl: {
-      colorMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/windows_lightMap.jpg"),
-      displacementMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/windows_map.jpg"),
-      normalMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/windows_normalMap.jpg"),
-      roughnessMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/windows_map.jpg"),
-      aoMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/windows_aoMap.jpg"),
+      colorMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/windows_lightMap.jpg"
+      ),
+      displacementMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/windows_map.jpg"
+      ),
+      normalMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/windows_normalMap.jpg"
+      ),
+      roughnessMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/windows_map.jpg"
+      ),
+      aoMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/windows_aoMap.jpg"
+      ),
     },
     Door_I_n_doorTxtr: {
-      colorMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/doors_lightMap.jpg"),
-      displacementMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/doors_map.jpg"),
-      normalMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/doors_normalMap.jpg"),
+      colorMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/doors_lightMap.jpg"
+      ),
+      displacementMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/doors_map.jpg"
+      ),
+      normalMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/doors_normalMap.jpg"
+      ),
       roughnessMap: useLoader(
         TextureLoader,
         "/vr_gallery/room/skin1/doors_roughnessMap.jpg"
@@ -62,9 +143,18 @@ const Textures = (useLoader, TextureLoader) => {
       aoMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/doors_aoMap.jpg"),
     },
     Door_o_ut_doorTxtr: {
-      colorMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/doors_lightMap.jpg"),
-      displacementMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/doors_map.jpg"),
-      normalMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/doors_normalMap.jpg"),
+      colorMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/doors_lightMap.jpg"
+      ),
+      displacementMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/doors_map.jpg"
+      ),
+      normalMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/doors_normalMap.jpg"
+      ),
       roughnessMap: useLoader(
         TextureLoader,
         "/vr_gallery/room/skin1/doors_roughnessMap.jpg"
@@ -72,9 +162,18 @@ const Textures = (useLoader, TextureLoader) => {
       aoMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/doors_aoMap.jpg"),
     },
     partition_1_6_walls: {
-      colorMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_lightMap.jpg"),
-      displacementMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_map.jpg"),
-      normalMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_normalMap.jpg"),
+      colorMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/walls_lightMap.jpg"
+      ),
+      displacementMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/walls_map.jpg"
+      ),
+      normalMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/walls_normalMap.jpg"
+      ),
       roughnessMap: useLoader(
         TextureLoader,
         "/vr_gallery/room/skin1/walls_roughnessMap.jpg"
@@ -82,9 +181,18 @@ const Textures = (useLoader, TextureLoader) => {
       aoMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_aoMap.jpg"),
     },
     partition_2_7_walls: {
-      colorMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_lightMap.jpg"),
-      displacementMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_map.jpg"),
-      normalMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_normalMap.jpg"),
+      colorMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/walls_lightMap.jpg"
+      ),
+      displacementMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/walls_map.jpg"
+      ),
+      normalMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/walls_normalMap.jpg"
+      ),
       roughnessMap: useLoader(
         TextureLoader,
         "/vr_gallery/room/skin1/walls_roughnessMap.jpg"
@@ -92,9 +200,18 @@ const Textures = (useLoader, TextureLoader) => {
       aoMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_aoMap.jpg"),
     },
     partition_3_8_walls: {
-      colorMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_lightMap.jpg"),
-      displacementMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_map.jpg"),
-      normalMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_normalMap.jpg"),
+      colorMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/walls_lightMap.jpg"
+      ),
+      displacementMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/walls_map.jpg"
+      ),
+      normalMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/walls_normalMap.jpg"
+      ),
       roughnessMap: useLoader(
         TextureLoader,
         "/vr_gallery/room/skin1/walls_roughnessMap.jpg"
@@ -102,9 +219,18 @@ const Textures = (useLoader, TextureLoader) => {
       aoMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_aoMap.jpg"),
     },
     partition_4_9_walls: {
-      colorMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_lightMap.jpg"),
-      displacementMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_map.jpg"),
-      normalMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_normalMap.jpg"),
+      colorMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/walls_lightMap.jpg"
+      ),
+      displacementMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/walls_map.jpg"
+      ),
+      normalMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/walls_normalMap.jpg"
+      ),
       roughnessMap: useLoader(
         TextureLoader,
         "/vr_gallery/room/skin1/walls_roughnessMap.jpg"
@@ -112,9 +238,18 @@ const Textures = (useLoader, TextureLoader) => {
       aoMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_aoMap.jpg"),
     },
     Wall_Inside_10_walls: {
-      colorMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_lightMap.jpg"),
-      displacementMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_map.jpg"),
-      normalMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_normalMap.jpg"),
+      colorMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/walls_lightMap.jpg"
+      ),
+      displacementMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/walls_map.jpg"
+      ),
+      normalMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/walls_normalMap.jpg"
+      ),
       roughnessMap: useLoader(
         TextureLoader,
         "/vr_gallery/room/skin1/walls_roughnessMap.jpg"
@@ -122,9 +257,18 @@ const Textures = (useLoader, TextureLoader) => {
       aoMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_aoMap.jpg"),
     },
     Wall_Inside_10_WallBlue: {
-      colorMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_lightMap.jpg"),
-      displacementMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_map.jpg"),
-      normalMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_normalMap.jpg"),
+      colorMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/walls_lightMap.jpg"
+      ),
+      displacementMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/walls_map.jpg"
+      ),
+      normalMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/walls_normalMap.jpg"
+      ),
       roughnessMap: useLoader(
         TextureLoader,
         "/vr_gallery/room/skin1/walls_roughnessMap.jpg"
@@ -132,9 +276,18 @@ const Textures = (useLoader, TextureLoader) => {
       aoMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_aoMap.jpg"),
     },
     Wall_Inside_10_WallPlinth: {
-      colorMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_lightMap.jpg"),
-      displacementMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_map.jpg"),
-      normalMap: useLoader(TextureLoader, "/vr_gallery/room/skin1/walls_normalMap.jpg"),
+      colorMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/walls_lightMap.jpg"
+      ),
+      displacementMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/walls_map.jpg"
+      ),
+      normalMap: useLoader(
+        TextureLoader,
+        "/vr_gallery/room/skin1/walls_normalMap.jpg"
+      ),
       roughnessMap: useLoader(
         TextureLoader,
         "/vr_gallery/room/skin1/walls_roughnessMap.jpg"
@@ -152,31 +305,6 @@ const getDiagonal = (point1, point2) => {
   return Math.sqrt(dX2 + dZ2);
 };
 
-// const getPointCloserToEnd = (startPoint, endPoint, distanceCloser) => {
-//   // Calculate the vector from start to end
-//   let vector = {
-//     x: endPoint.x - startPoint.x,
-//     z: endPoint.z - startPoint.z,
-//   };
-
-//   // Calculate the length of the vector
-//   let length = Math.sqrt(vector.x ** 2 + vector.z ** 2);
-
-//   // Normalize the vector
-//   let normalizedVector = {
-//     x: vector.x / length,
-//     z: vector.z / length,
-//   };
-
-//   // Calculate the new point
-//   let newPoint = {
-//     x: startPoint.x + normalizedVector.x * distanceCloser,
-//     z: startPoint.z + normalizedVector.z * distanceCloser,
-//   };
-
-//   return newPoint;
-// };
-
 const getWay = (startPosition, finishPosition, steps) => {
   const dx = (finishPosition.x - startPosition.x) / steps;
   const dz = (finishPosition.z - startPosition.z) / steps;
@@ -190,45 +318,38 @@ const getWay = (startPosition, finishPosition, steps) => {
 };
 
 const isPointOutsideWalls = (point, polygons) => {
-  for (const polygon of polygons) {
+  const isInsidePolygon = (polygon) => {
     let windingNumber = 0;
 
-    for (const vertex of polygon) {
-      const dx = vertex.x - point.x;
-      const dz = vertex.z - point.z;
+    for (let i = 0; i < polygon.length; i++) {
+      const v1 = polygon[i];
+      const v2 = polygon[(i + 1) % polygon.length];
 
-      if (dz === 0 && dx !== 0) {
-        if (dx > 0) {
-          if (point.x < vertex.x) {
-            return false;
-          }
-        } else {
-          if (point.x > vertex.x) {
-            return false;
-          }
+      if (v1.z <= point.z) {
+        if (v2.z > point.z && isLeft(v1, v2, point) > 0) {
+          windingNumber++;
         }
       } else {
-        const t = -dz / dx;
-        const xi = point.x + t * dx;
-
-        if (dx > 0 && xi > point.x && xi < vertex.x) {
-          windingNumber++;
-        } else if (dx < 0 && xi < point.x && xi > vertex.x) {
+        if (v2.z <= point.z && isLeft(v1, v2, point) < 0) {
           windingNumber--;
         }
       }
     }
 
     return windingNumber !== 0;
+  };
+
+  const isLeft = (v1, v2, p) => {
+    return (v2.x - v1.x) * (p.z - v1.z) - (p.x - v1.x) * (v2.z - v1.z);
+  };
+
+  for (const polygon of polygons) {
+    if (isInsidePolygon(polygon)) {
+      return false; // Point is inside a wall
+    }
   }
 
-  return true;
+  return true; // Point is outside all walls
 };
 
-export {
-  Textures,
-  getDiagonal,
-  // getPointCloserToEnd,
-  getWay,
-  isPointOutsideWalls,
-};
+export { Textures, getDiagonal, getWay, isPointOutsideWalls };

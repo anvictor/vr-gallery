@@ -5,11 +5,11 @@ import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { Textures as getTextures, getDiagonal } from "../utils";
 import * as THREE from "three";
 
-const Room = ({ getClickPointXYZ, 
-  // getPointerPos, 
-  getPointerNormal 
+const Room = ({
+  getClickPointXYZ,
+  // getPointerPos,
+  getPointerNormal,
 }) => {
-
   const {
     raycaster,
     camera,
@@ -27,7 +27,7 @@ const Room = ({ getClickPointXYZ,
       child.side = THREE.FrontSide;
       child.isMesh = true;
     }
-    if ( child.name && Textures) {
+    if (child.name && Textures) {
       child.material.map = Textures[child.name].colorMap;
       child.material.displacementMap = Textures[child.name].displacementMap;
       child.material.normalMap = Textures[child.name].normalMap;
@@ -44,10 +44,6 @@ const Room = ({ getClickPointXYZ,
       true
     );
     if (intersects.length > 0) {
-      // const x= Math.round(intersects[0].point.x)
-      // const y= Math.round(intersects[0].point.y)
-      // const z= Math.round(intersects[0].point.z)
-      // console.log('x, y, z',x,y,z); // xyz
       setstartDelta(intersects[0].point);
     }
   };
@@ -77,7 +73,6 @@ const Room = ({ getClickPointXYZ,
     }
   };
   const handlePointerMove = (event) => {
-    
     const normalizedPoint = getNormalizedPoint(event, domElement);
     raycaster.setFromCamera(normalizedPoint, camera);
     const intersects = raycaster.intersectObjects(
@@ -85,10 +80,10 @@ const Room = ({ getClickPointXYZ,
       true
     );
     if (intersects.length > 0) {
-    //   if(intersects[0].object.name!=='Wall_Outside_11_Noneb'){
-    //     getPointerNormal(intersects[0].face.normal);
-    //     getPointerPos(intersects[0].point);
-    //   }
+      //   if(intersects[0].object.name!=='Wall_Outside_11_Noneb'){
+      //     getPointerNormal(intersects[0].face.normal);
+      //     getPointerPos(intersects[0].point);
+      //   }
     }
   };
 
