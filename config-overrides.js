@@ -1,11 +1,17 @@
 // config-overrides.js
-const { override, addWebpackModuleRule } = require("customize-cra");
+module.exports = function override(config) {
+  const sourceMapRule = config.module.rules
+    .find((rule) => Array.isArray(rule.oneOf))
+    ?.oneOf.find((r) =>
+      r.use?.some((u) => u.loader?.includes("source-map-loader"))
+    );
 
-module.exports = override(
-  addWebpackModuleRule({
-    test: /\.mjs$/, // ⬅️ тільки .mjs, не .js
-    enforce: "pre",
-    use: ["source-map-loader"],
-    exclude: [/node_modules\/@mediapipe\/tasks-vision/],
-  })
-);
+  if (sourceMapRule) {
+    sourceMapRule.exclude = [
+      /node_modules\/@mediapipe\/tasks-vision/,
+      /node_modules/,
+    ];
+  }
+
+  return config;
+};

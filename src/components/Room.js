@@ -18,23 +18,32 @@ const Room = ({
   } = useThree();
   const Textures = getTextures(useLoader, TextureLoader);
   const [startDelta, setstartDelta] = useState(null);
-  const room = useLoader(OBJLoader, "/vr_gallery/room/room.obj");
-  room.position.x = 85;
-  room.position.y = 0;
-  room.position.z = -59;
+  const room = useLoader(OBJLoader, process.env.PUBLIC_URL + "/room/room.obj");
+
+  room.position.set(85, 0, -59);
+
   room.traverse((child) => {
-    if (child.name === "Wall_Outside_11_None") {
-      child.side = THREE.FrontSide;
-      child.isMesh = true;
-    }
-    if (child.name && Textures) {
-      child.material.map = Textures[child.name].colorMap;
-      child.material.displacementMap = Textures[child.name].displacementMap;
-      child.material.normalMap = Textures[child.name].normalMap;
-      child.material.roughnessMap = Textures[child.name].roughnessMap;
-      child.material.aoMap = Textures[child.name].aoMap;
-    }
+    if (!child.isMesh || !child.name) return;
+
+    console.log("🔎 Geometry check:", child.name, {
+      geometryType: child.geometry?.type,
+      hasPosition: !!child.geometry?.attributes?.position,
+      hasNormal: !!child.geometry?.attributes?.normal,
+      hasUV: !!child.geometry?.attributes?.uv,
+      hasIndex: !!child.geometry?.index,
+    });
+
+    const tex = Textures[child.name];
+    if (!tex || !child.material) return;
+
+    child.material.map = tex.colorMap || null;
+    child.material.displacementMap = tex.displacementMap || null;
+    child.material.normalMap = tex.normalMap || null;
+    child.material.roughnessMap = tex.roughnessMap || null;
+    child.material.aoMap = tex.aoMap || null;
+    child.material.needsUpdate = true;
   });
+
   const roomRef = React.useRef();
   const handlePointerDown = (event) => {
     const normalizedPoint = getNormalizedPoint(event, domElement);

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import { createRoot } from "react-dom/client";
 import { Canvas, useThree } from "@react-three/fiber";
 import Room from "./components/Room";
 import FirstPersonCamera from "./components/FirstPersonCamera";
@@ -8,6 +7,7 @@ import Painting from "./components/Painting";
 import Paintings from "./components/Paintings.json";
 import MonitorTV from "./components/MonitorTV";
 import Environment3d from "./components/Environment3d";
+import RoomBoundary from "./RoomBoundary";
 /**
  Inspect=true to inspect scene
  */
@@ -37,10 +37,6 @@ const App = () => {
     if (isKeyDown) setClickPoint(null);
   }, [isKeyDown]);
 
-  useEffect(() => {
-    console.log("clickPoint", clickPoint);
-  }, [clickPoint]);
-
   const getFlyData = (pos3d) => {
     setClickPoint(pos3d); // ✅ запускає покроковий рух
   };
@@ -57,11 +53,15 @@ const App = () => {
           position={[350, 400, -400]}
           intensity={0.5}
         />
-        <Room
-          getClickPointXYZ={setClickPoint}
-          getPointerPos={null}
-          getPointerNormal={null}
-        />
+        <React.Suspense fallback={null}>
+          <RoomBoundary>
+            <Room
+              getClickPointXYZ={setClickPoint}
+              getPointerPos={null}
+              getPointerNormal={null}
+            />
+          </RoomBoundary>
+        </React.Suspense>
         <FirstPersonCamera
           cameraReachedPoint={handleCameraReachedPoint}
           goToClickOnFloor={clickPoint}
@@ -81,9 +81,5 @@ const App = () => {
     </>
   );
 };
-const root = document.getElementById("root");
-if (root) {
-  createRoot(root).render(<App />);
-}
 
 export default App;
