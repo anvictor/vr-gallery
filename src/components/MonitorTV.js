@@ -23,7 +23,10 @@ const MonitorTV = () => {
   };
 
   const PlayButton = ({ handleClick }) => {
-    const texture = useLoader(TextureLoader, "/vr_gallery/util_Imgs/PlayBtn.png");
+    const texture = useLoader(
+      TextureLoader,
+      process.env.PUBLIC_URL + "/util_Imgs/PlayBtn.png"
+    );
 
     return (
       <mesh onClick={handleClick} position={[0, -20, 3]}>

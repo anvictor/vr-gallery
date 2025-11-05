@@ -25,14 +25,6 @@ const Room = ({
   room.traverse((child) => {
     if (!child.isMesh || !child.name) return;
 
-    console.log("🔎 Geometry check:", child.name, {
-      geometryType: child.geometry?.type,
-      hasPosition: !!child.geometry?.attributes?.position,
-      hasNormal: !!child.geometry?.attributes?.normal,
-      hasUV: !!child.geometry?.attributes?.uv,
-      hasIndex: !!child.geometry?.index,
-    });
-
     const tex = Textures[child.name];
     if (!tex || !child.material) return;
 
