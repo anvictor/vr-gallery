@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/vr_gallery/static/(.*)",
+      "destination": "/static/$1"
+    },
+    {
+      "source": "/vr_gallery/(.*)",
+      "destination": "/vr_gallery/index.html"
+    }
+  ]
+}
