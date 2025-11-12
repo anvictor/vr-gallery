@@ -1,3 +1,4 @@
+// controls.js
 import { useState, useEffect, useRef } from "react";
 
 const SENSITIVITY = 0.002;
@@ -43,8 +44,16 @@ const useControls = (domElement) => {
   const lastTouch = useRef({ x: 0, y: 0 });
   const lastMouse = useRef({ x: 0, y: 0 });
 
-  // ✅ Pinch state
+  // Pinch state
   const pinchActiveRef = useRef(false);
+  const pinchDistanceRef = useRef(null);
+
+  // Helper: calculate distance between two fingers
+  const getDistance = (touches) => {
+    const dx = touches[0].clientX - touches[1].clientX;
+    const dy = touches[0].clientY - touches[1].clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+  };
 
   const handleKeyDown = (event) => {
     if (event.code === "ArrowDown") {
@@ -137,8 +146,8 @@ const useControls = (domElement) => {
   };
 
   const handleTouchMove = (event) => {
-    if (event.touches.length === 1) {
-      // ✅ однопальцевий drag
+    if (event.touches.length === 1 && !pinchActiveRef.current) {
+      // One finger drag → rotation
       const touch = event.touches[0];
       const movementX = touch.clientX - lastTouch.current.x;
       const movementY = touch.clientY - lastTouch.current.y;
@@ -148,23 +157,35 @@ const useControls = (domElement) => {
       setMousePos({ x: dx, y: dy });
       lastTouch.current = { x: touch.clientX, y: touch.clientY };
     } else if (event.touches.length === 2) {
-      // ✅ pinch‑zoom (спрощено)
+      // Pinch gesture → forward/backward movement
       pinchActiveRef.current = true;
+      mouseDownRef.current = false; // disable drag rotation
+      setMousePos({ x: 0, y: 0 }); // reset rotation
 
-      // Якщо scale доступний — використовуємо його, інакше просто forward/backward
-      const scale = event.scale || 1;
-      const direction = scale > 1 ? "forward" : "backward";
+      const newDistance = getDistance(event.touches);
+      const prevDistance = pinchDistanceRef.current;
 
-      setMoveState((s) => ({ ...s, [direction]: true }));
+      if (prevDistance !== null) {
+        if (newDistance < prevDistance) {
+          // Pinch-in → move backward
+          setMoveState((s) => ({ ...s, backward: true }));
+        } else if (newDistance > prevDistance) {
+          // Pinch-out → move forward
+          setMoveState((s) => ({ ...s, forward: true }));
+        }
+      }
+
+      pinchDistanceRef.current = newDistance;
     }
   };
 
   const handleTouchEnd = () => {
+    pinchActiveRef.current = false;
+    pinchDistanceRef.current = null;
     setMouseDown(false);
     mouseDownRef.current = false;
-    pinchActiveRef.current = false;
 
-    // Скидаємо рух після завершення pinch
+    // Reset movement after pinch ends
     setMoveState({
       forward: false,
       backward: false,
