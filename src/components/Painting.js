@@ -36,7 +36,7 @@ const Painting = ({ data, getFlyData }) => {
       rotation={rotation}
       userData={{ data }}
       // onClick={handleClick}
-      onPointerDown
+      onPointerDown={handleClick}
     >
       <mesh position={[0, 0, 2]} userData={{ data }} name={`painting-${name}`}>
         <boxGeometry args={[width / 10, height / 10, 2]} />
