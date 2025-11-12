@@ -7,6 +7,10 @@
     {
       "source": "/vr_gallery/(.*)",
       "destination": "/vr_gallery/index.html"
+    },
+    {
+      "source": "/vr_gallery/:path*",
+      "destination": "/:path*"
     }
   ]
 }
