@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
+
 const SENSITIVITY = 0.002;
 const mouse = { x: 0, y: 0 };
+
 // Movement keys (WASD + arrows)
 const keys = {
   KeyW: "forward",
@@ -41,10 +43,13 @@ const useControls = (domElement) => {
   const lastTouch = useRef({ x: 0, y: 0 });
   const lastMouse = useRef({ x: 0, y: 0 });
 
+  // ✅ Pinch state
+  const pinchActiveRef = useRef(false);
+
   const handleKeyDown = (event) => {
     if (event.code === "ArrowDown") {
-      event.preventDefault(); // зупиняє прокрутку
-      event.stopPropagation(); // зупиняє передачу іншим скриптам
+      event.preventDefault();
+      event.stopPropagation();
     }
 
     const shiftKey = event.shiftKey;
@@ -69,16 +74,14 @@ const useControls = (domElement) => {
     }
   };
 
-  const handleKeyUp = (event) => {
+  const handleKeyUp = () => {
     setKeyDown(false);
-
     setMoveState({
       forward: false,
       backward: false,
       left: false,
       right: false,
     });
-
     setRotateState({ rotateLeft: false, rotateRight: false });
   };
 
@@ -107,7 +110,6 @@ const useControls = (domElement) => {
       };
     }
 
-    // ✅ оновлюємо координати миші для raycaster
     mouse.x = (startPosition.x / window.innerWidth) * 2 - 1;
     mouse.y = -(startPosition.y / window.innerHeight) * 2 + 1;
 
@@ -122,6 +124,7 @@ const useControls = (domElement) => {
     mouseDownRef.current = false;
     setMousePos({ x: 0, y: 0 });
   };
+
   const handleMouseMove = (event) => {
     if (!mouseDownRef.current) return;
     const current = { x: event.clientX, y: event.clientY };
@@ -132,22 +135,44 @@ const useControls = (domElement) => {
     setMousePos({ x: dx, y: dy });
     lastMouse.current = current;
   };
-  const handleTouchMove = (event) => {
-    if (event.touches.length !== 1) return;
-    const touch = event.touches[0];
-    const movementX = touch.clientX - lastTouch.current.x;
-    const movementY = touch.clientY - lastTouch.current.y;
-    const dx = -movementX * SENSITIVITY;
-    const dy = -movementY * SENSITIVITY;
 
-    setMousePos({ x: dx, y: dy });
-    lastTouch.current = { x: touch.clientX, y: touch.clientY };
+  const handleTouchMove = (event) => {
+    if (event.touches.length === 1) {
+      // ✅ однопальцевий drag
+      const touch = event.touches[0];
+      const movementX = touch.clientX - lastTouch.current.x;
+      const movementY = touch.clientY - lastTouch.current.y;
+      const dx = -movementX * SENSITIVITY;
+      const dy = -movementY * SENSITIVITY;
+
+      setMousePos({ x: dx, y: dy });
+      lastTouch.current = { x: touch.clientX, y: touch.clientY };
+    } else if (event.touches.length === 2) {
+      // ✅ pinch‑zoom (спрощено)
+      pinchActiveRef.current = true;
+
+      // Якщо scale доступний — використовуємо його, інакше просто forward/backward
+      const scale = event.scale || 1;
+      const direction = scale > 1 ? "forward" : "backward";
+
+      setMoveState((s) => ({ ...s, [direction]: true }));
+    }
   };
+
   const handleTouchEnd = () => {
     setMouseDown(false);
     mouseDownRef.current = false;
-    // setMousePos({ x: 0, y: 0 });
+    pinchActiveRef.current = false;
+
+    // Скидаємо рух після завершення pinch
+    setMoveState({
+      forward: false,
+      backward: false,
+      left: false,
+      right: false,
+    });
   };
+
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("keyup", handleKeyUp);
@@ -176,6 +201,7 @@ const useControls = (domElement) => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return [
     moveState,
     mouseDown,
@@ -187,4 +213,5 @@ const useControls = (domElement) => {
     mouse,
   ];
 };
+
 export default useControls;
