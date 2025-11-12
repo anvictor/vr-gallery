@@ -35,8 +35,8 @@ const Painting = ({ data, flyToPoint }) => {
       position={position}
       rotation={rotation}
       userData={{ data }}
-      onClick={handleClick}
-      onPointerDown={handleClick} // works on desktop + mobile
+      // onClick={handleClick}
+      onPointerUp={handleClick} // works on desktop + mobile
     >
       <mesh position={[0, 0, 2]} name={`painting-${name}`}>
         <boxGeometry args={[width / 10, height / 10, 2]} />
