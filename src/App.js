@@ -11,6 +11,7 @@ import RoomBoundary from "./RoomBoundary";
 
 const Inspect = true;
 const SceneInspector = () => {
+  // eslint-disable-next-line no-unused-vars
   const { scene } = useThree();
   return null;
 };
