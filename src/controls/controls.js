@@ -176,7 +176,6 @@ const useControls = (domElement) => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  // console.log(mouseDown, mousePos.x);
   return [
     moveState,
     mouseDown,

@@ -10,7 +10,7 @@ const ROTATION_SPEED_FACTOR = 100;
 
 const FirstPersonCamera = ({
   cameraReachedPoint,
-  goToClickOnFloor, // target point set when clicking floor OR painting
+  cameraTargetPoint, // ✅ unified target point (floor OR painting)
   getIsKeyDown,
 }) => {
   const wayRef = useRef([]); // stores the path (array of steps)
@@ -66,18 +66,12 @@ const FirstPersonCamera = ({
     // -------------------------------
     // 2. FLIGHT LOGIC (independent of mouseDown)
     // -------------------------------
-    if (goToClickOnFloor) {
+    if (cameraTargetPoint) {
       // Check if camera reached the target point
-      if (
-        Math.floor(goToClickOnFloor.x) === Math.floor(camera.position.x) &&
-        Math.floor(goToClickOnFloor.z) === Math.floor(camera.position.z)
-      ) {
-        cameraReachedPoint();
-      }
 
       // Build path only once per request
       if (wayRef.current.length === 0 && currentStepRef.current === 0) {
-        const calculatedWay = getWay(camera.position, goToClickOnFloor, 30);
+        const calculatedWay = getWay(camera.position, cameraTargetPoint, 30);
         wayRef.current = calculatedWay;
       }
 
@@ -95,6 +89,7 @@ const FirstPersonCamera = ({
       ) {
         wayRef.current = [];
         currentStepRef.current = 0;
+        cameraReachedPoint();
       }
     }
 

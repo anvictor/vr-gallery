@@ -1,3 +1,4 @@
+// Room.js
 import React, { useState } from "react";
 import { useLoader, useThree } from "@react-three/fiber";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
@@ -6,7 +7,7 @@ import { Textures as getTextures, getDiagonal } from "../utils";
 import * as THREE from "three";
 
 const Room = ({
-  getClickPointXYZ,
+  flyToPoint,
   // getPointerPos,
   getPointerNormal,
 }) => {
@@ -67,9 +68,9 @@ const Room = ({
       const endDelta = intersects[0].point;
       const diagonal = getDiagonal(startDelta, endDelta);
       if (diagonal < 15 && isFloor) {
-        getClickPointXYZ(endDelta);
+        flyToPoint(endDelta);
       } else {
-        getClickPointXYZ(null);
+        flyToPoint(null);
       }
     }
   };

@@ -15,7 +15,7 @@ class RoomBoundary extends React.Component {
   }
 
   render() {
-    console.log("✅ RoomBoundary rendered without error");
+    // console.log("✅ RoomBoundary rendered without error");
 
     if (this.state.hasError) {
       console.warn("❌ RoomBoundary caught error:", this.state.error);

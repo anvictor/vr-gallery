@@ -4,7 +4,7 @@ import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
 import Label from "./Label";
 
-const Painting = ({ data, getFlyData }) => {
+const Painting = ({ data, flyToPoint }) => {
   const { position, imageUrl, width, height, rotation, name, author } = data;
   const texture = useTexture(imageUrl);
   const backTexture = useTexture("/vr_gallery/paintings/CanvasBackSide.jpg");
@@ -14,20 +14,20 @@ const Painting = ({ data, getFlyData }) => {
   const brightness = 80;
 
   const handleClick = (e) => {
-    if (e && e.stopPropagation) e.stopPropagation();
+    e.stopPropagation();
     const distanceAbsolut = height * 0.0632 + 5.5;
     const sign = rotation[1] === 0 ? 1 : rotation[1] === 1.5708 ? 1 : -1;
-    const pos3d = new THREE.Vector3();
-    pos3d.x =
+    const pos3d = new THREE.Vector3(
       rotation[1] === 1.5708 || rotation[1] === -1.5708
         ? position[0] + sign * distanceAbsolut
-        : position[0];
-    pos3d.y = position[1];
-    pos3d.z =
+        : position[0],
+      position[1],
       rotation[1] === 0 || rotation[1] === 3.14159
         ? position[2] + sign * distanceAbsolut
-        : position[2];
-    getFlyData(pos3d);
+        : position[2]
+    );
+
+    flyToPoint(pos3d); // ✅ unified call
   };
 
   return (
@@ -35,12 +35,11 @@ const Painting = ({ data, getFlyData }) => {
       position={position}
       rotation={rotation}
       userData={{ data }}
-      onPointerDown={handleClick}
+      onClick={handleClick} // works on desktop + mobile
     >
-      <mesh position={[0, 0, 2]} userData={{ data }} name={`painting-${name}`}>
+      <mesh position={[0, 0, 2]} name={`painting-${name}`}>
         <boxGeometry args={[width / 10, height / 10, 2]} />
         <meshBasicMaterial
-          attach="material"
           map={texture}
           side={THREE.FrontSide}
           color={
@@ -50,25 +49,21 @@ const Painting = ({ data, getFlyData }) => {
           }
         />
       </mesh>
-      <mesh position={[0, -3, 0.9]} userData={{ data }}>
+      <mesh position={[0, -3, 0.9]}>
         <planeGeometry args={[(width / 10) * 1.15, (height / 10) * 1.15, 2]} />
-        <meshBasicMaterial
-          attach="material"
-          map={shadowTexture}
-          transparent={true}
-        />
+        <meshBasicMaterial map={shadowTexture} transparent />
       </mesh>
-      <mesh position={[0, 0, 0.9]} userData={{ data }}>
+      <mesh position={[0, 0, 0.9]}>
         <planeGeometry args={[width / 10, height / 10, 2]} />
         <meshBasicMaterial
-          attach="material"
           map={backTexture}
           side={THREE.BackSide}
-          transparent={true}
+          transparent
         />
       </mesh>
       <Label author={author} name={name} width={width} height={height} />
     </group>
   );
 };
+
 export default Painting;
