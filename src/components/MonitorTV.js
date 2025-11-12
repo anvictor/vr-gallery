@@ -1,43 +1,24 @@
-import React, { useEffect, useState } from "react";
-import {
-  VideoTexture,
-  MeshBasicMaterial,
-  DoubleSide,
-  TextureLoader,
-  Vector2,
-} from "three";
-import { useLoader } from "@react-three/fiber";
+// MonitorTV.js
+import React, { useEffect, useRef } from "react";
+import { VideoTexture, MeshBasicMaterial, DoubleSide, Vector2 } from "three";
+import * as THREE from "three";
 import Label from "./Label";
 
-const MonitorTV = () => {
-  const video = document.createElement("video");
-  video.src = "/vr_gallery/paintings/SculptureHead.mp4"; // Put your video url here
-  const [playVideo, setPlayVideo] = useState(false);
+const MonitorTV = ({ flyToPoint }) => {
+  const videoRef = useRef(null);
 
-  const handleClick = () => {
-    setPlayVideo(!playVideo);
-  };
+  if (!videoRef.current) {
+    const video = document.createElement("video");
+    video.src = "/vr_gallery/paintings/SculptureHead.mp4";
+    video.muted = true; // без звуку
+    video.loop = true; // нескінченний цикл
+    video.playsInline = true; // для мобільних
+    video.setAttribute("playsinline", "");
+    videoRef.current = video;
+  }
 
-  const handleOut = () => {
-    setPlayVideo(false);
-  };
-
-  const PlayButton = ({ handleClick }) => {
-    const texture = useLoader(
-      TextureLoader,
-      process.env.PUBLIC_URL + "/util_Imgs/PlayBtn.png"
-    );
-
-    return (
-      <mesh onClick={handleClick} position={[0, -20, 3]}>
-        <planeGeometry attach="geometry" args={[15, 15]} />
-        <meshBasicMaterial attach="material" map={texture} transparent={true} />
-      </mesh>
-    );
-  };
-
-  const videoTexture = new VideoTexture(video);
-  videoTexture.offset = new Vector2(0.1, 0.1); // Adjust these values as needed
+  const videoTexture = new VideoTexture(videoRef.current);
+  videoTexture.offset = new Vector2(0.1, 0.1);
   videoTexture.repeat = new Vector2(0.7, 0.7);
   const material = new MeshBasicMaterial({
     map: videoTexture,
@@ -45,36 +26,36 @@ const MonitorTV = () => {
   });
 
   useEffect(() => {
-    if (playVideo) {
-      video.load();
-      video.play();
-    }
-
-    // Return a cleanup function from the effect
+    videoRef.current.load();
+    videoRef.current.play().catch((err) => {
+      console.warn("Autoplay prevented:", err);
+    });
     return () => {
-      video.pause(); // Stop the video from playing
-      video.src = ""; // Remove the source of the video
-      video.load(); // Call the load method
-
-      // Dispose of the video texture and material in Three.js
       videoTexture.dispose();
       material.dispose();
     };
     // eslint-disable-next-line
-  }, [playVideo]);
+  }, []);
+
+  const handleFlyToMonitor = (e) => {
+    e.stopPropagation();
+    const distance = 60;
+    const monitorPos = new THREE.Vector3(-115, 180, 50);
+    const forward = new THREE.Vector3(0, 0, 1);
+    forward.applyEuler(new THREE.Euler(0, 1.5708, 0));
+    const pos3d = monitorPos.clone().add(forward.multiplyScalar(distance));
+    flyToPoint(pos3d);
+  };
 
   return (
     <group
       position={[-115, 180, 50]}
       rotation={[0, 1.5708, 0]}
-      onPointerLeave={handleOut}
+      onPointerUp={handleFlyToMonitor}
     >
-      <mesh material={material} position={[0, 0, 2]} onClick={handleClick}>
-        <planeGeometry attach="geometry" args={[45, 70]} />
+      <mesh material={material} position={[0, 0, 2]}>
+        <planeGeometry args={[45, 70]} />
       </mesh>
-      {!playVideo && (
-        <PlayButton setPlayVideo={setPlayVideo} handleClick={handleClick} />
-      )}
       <Label
         author={"Viktor Andreichenko"}
         name={"Sculpture Head"}

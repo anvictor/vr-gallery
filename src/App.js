@@ -11,7 +11,6 @@ import RoomBoundary from "./RoomBoundary";
 
 const Inspect = true;
 const SceneInspector = () => {
-  // eslint-disable-next-line no-unused-vars
   const { scene } = useThree();
   return null;
 };
@@ -35,7 +34,7 @@ const App = () => {
     if (isKeyDown) setCameraTargetPoint(null);
   }, [isKeyDown]);
 
-  // ✅ Unified function for both floor and paintings
+  // ✅ Unified function for floor, paintings, monitor
   const flyToPoint = (pos3d) => {
     setCameraTargetPoint(pos3d);
   };
@@ -64,7 +63,7 @@ const App = () => {
       {Paintings.map((painting) => (
         <Painting key={painting.id} data={painting} flyToPoint={flyToPoint} />
       ))}
-      <MonitorTV />
+      <MonitorTV flyToPoint={flyToPoint} />
       {Inspect && <SceneInspector />}
     </Canvas>
   );

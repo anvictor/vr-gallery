@@ -339,6 +339,7 @@ const Textures = (useLoader, TextureLoader) => {
   };
 };
 const getDiagonal = (point1, point2) => {
+  if (!point1 || !point2) return 0;
   const dX2 = (point2.x - point1.x) * (point2.x - point1.x);
   const dZ2 = (point2.z - point1.z) * (point2.z - point1.z);
   return Math.sqrt(dX2 + dZ2);
