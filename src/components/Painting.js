@@ -35,7 +35,6 @@ const Painting = ({ data, getFlyData }) => {
       position={position}
       rotation={rotation}
       userData={{ data }}
-      // onClick={handleClick}
       onPointerDown={handleClick}
     >
       <mesh position={[0, 0, 2]} userData={{ data }} name={`painting-${name}`}>

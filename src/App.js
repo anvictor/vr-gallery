@@ -69,11 +69,7 @@ const App = () => {
           getFlyData={getFlyData}
         />
         {Paintings.map((painting) => (
-          <Painting
-            key={painting.id}
-            data={painting}
-            getFlyData={setClickPoint}
-          />
+          <Painting key={painting.id} data={painting} getFlyData={getFlyData} />
         ))}
         <MonitorTV />
         {Inspect && <SceneInspector />}
