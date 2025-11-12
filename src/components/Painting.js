@@ -1,3 +1,4 @@
+// Painting.js
 import React from "react";
 import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
@@ -34,7 +35,8 @@ const Painting = ({ data, getFlyData }) => {
       position={position}
       rotation={rotation}
       userData={{ data }}
-      onClick={handleClick}
+      // onClick={handleClick}
+      onPointerDown
     >
       <mesh position={[0, 0, 2]} userData={{ data }} name={`painting-${name}`}>
         <boxGeometry args={[width / 10, height / 10, 2]} />
