@@ -7,36 +7,30 @@ import { getWay, isPointOutsideWalls } from "../utils";
 import { polygons } from "../controls/roomBorders";
 
 const ROTATION_SPEED_FACTOR = 100;
+
 const FirstPersonCamera = ({
   cameraReachedPoint,
-  goToClickOnFloor,
+  goToClickOnFloor, // target point set when clicking floor OR painting
   getIsKeyDown,
-  getFlyData,
 }) => {
-  // const raycaster = new THREE.Raycaster(); // no longer used for paintings
-  const wayRef = useRef([]);
+  const wayRef = useRef([]); // stores the path (array of steps)
+  const currentStepRef = useRef(0); // current step index
   const [outside, setOutside] = useState(true);
-  const currentStepRef = useRef(0);
 
   const {
     camera,
-    // scene,
     gl: { domElement },
     invalidate,
   } = useThree();
+
   const cameraRef = useRef();
   const prevMouseDownRef = useRef(false);
-  // const clickRaycastFramesRef = useRef(0);
-  const [
-    moveState,
-    mouseDown,
-    mousePos,
-    keyDown,
-    rotateState,
-    // resetMousePos,
-    // mouse, // ✅ додаємо
-  ] = useControls(domElement);
 
+  // Controls hook gives us movement/rotation states
+  const [moveState, mouseDown, mousePos, keyDown, rotateState] =
+    useControls(domElement);
+
+  // Initial camera setup
   camera.position.y = 180;
   camera.far = 5000;
   getIsKeyDown(keyDown);
@@ -44,8 +38,6 @@ const FirstPersonCamera = ({
   useEffect(() => {
     cameraRef.current = camera;
     camera.rotation.order = "YXZ";
-    // Ensure far plane applies immediately and render a frame
-    camera.far = 5000;
     camera.updateProjectionMatrix();
     invalidate();
     return () => {
@@ -54,11 +46,14 @@ const FirstPersonCamera = ({
   }, [camera, invalidate]);
 
   useFrame(() => {
-    // Painting clicks are handled by Painting.onClick now; keep only rotation here
     prevMouseDownRef.current = mouseDown;
 
     const rotationSpeed = 2;
     const moveSpeed = 2;
+
+    // -------------------------------
+    // 1. ROTATION LOGIC (requires mouseDown)
+    // -------------------------------
     if (mouseDown && (mousePos.x !== 0 || mousePos.y !== 0)) {
       camera.rotation.y -= rotationSpeed * mousePos.x;
       camera.rotation.x -= rotationSpeed * mousePos.y;
@@ -68,27 +63,32 @@ const FirstPersonCamera = ({
       );
     }
 
+    // -------------------------------
+    // 2. FLIGHT LOGIC (independent of mouseDown)
+    // -------------------------------
     if (goToClickOnFloor) {
+      // Check if camera reached the target point
       if (
         Math.floor(goToClickOnFloor.x) === Math.floor(camera.position.x) &&
         Math.floor(goToClickOnFloor.z) === Math.floor(camera.position.z)
       ) {
         cameraReachedPoint();
       }
-      // Only calculate the way once per goToClickOnFloor request
+
+      // Build path only once per request
       if (wayRef.current.length === 0 && currentStepRef.current === 0) {
         const calculatedWay = getWay(camera.position, goToClickOnFloor, 30);
         wayRef.current = calculatedWay;
       }
 
-      // Move the camera along the way if there's more to go
+      // Move camera step by step along the path
       if (wayRef.current.length > currentStepRef.current) {
         const [x, z] = wayRef.current[currentStepRef.current];
         camera.position.x = x;
         camera.position.z = z;
         currentStepRef.current += 1;
       }
-      // If we've finished the journey, reset the state
+      // Reset when finished
       else if (
         wayRef.current.length > 0 &&
         currentStepRef.current >= wayRef.current.length
@@ -98,6 +98,9 @@ const FirstPersonCamera = ({
       }
     }
 
+    // -------------------------------
+    // 3. KEYBOARD MOVEMENT LOGIC
+    // -------------------------------
     const direction = new THREE.Vector3();
     camera.getWorldDirection(direction);
 
@@ -116,6 +119,7 @@ const FirstPersonCamera = ({
     }
     if (moveState.right) camera.position.sub(right.multiplyScalar(moveSpeed));
     if (moveState.left) camera.position.add(right.multiplyScalar(moveSpeed));
+
     if (rotateState.rotateLeft) {
       camera.rotation.y += rotationSpeed / ROTATION_SPEED_FACTOR;
     }
@@ -123,13 +127,16 @@ const FirstPersonCamera = ({
       camera.rotation.y -= rotationSpeed / ROTATION_SPEED_FACTOR;
     }
 
+    // -------------------------------
+    // 4. WALL COLLISION CHECK
+    // -------------------------------
     setOutside(isPointOutsideWalls(camera.position, polygons));
     if (!outside) {
-      // If we are inside a polygon, reset to the previous position
       camera.position.copy(previousPosition);
     }
   });
 
   return null;
 };
+
 export default FirstPersonCamera;
