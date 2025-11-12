@@ -174,6 +174,7 @@ const useControls = (domElement) => {
 
       document.removeEventListener("wheel", handleWheel);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // console.log(mouseDown, mousePos.x);
   return [
